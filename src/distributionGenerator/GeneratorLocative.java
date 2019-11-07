@@ -32,10 +32,20 @@ public class GeneratorLocative implements IGenerator {
 	public void generate() {
 
 
-		//割り当てる順番を決定する
-		//順番を管理する
-		//隣接するノードを割り当てる
+		//注目するノードを決定するリストを作成
+		//nodeの上から順番に初期ノードを登録
 
+
+		//注目するノードを取り出す
+
+		//隣接するノードが空いているか判定するメソッド
+		//優先度は上左右下の順番
+		//ノードが空いていたら埋めて注目リストに追加
+
+		//指定するノードが空いているか判定するメソッド
+		//注目するノードがなくなったら終了
+
+		System.out.println(allocationMap_);
 
 	}
 
@@ -138,6 +148,7 @@ public class GeneratorLocative implements IGenerator {
 	}
 
 	//能力から割り当て数を決定
+	//能力から割り当て比率を決定
 	public void calc() {
 
 		double sum = 0;

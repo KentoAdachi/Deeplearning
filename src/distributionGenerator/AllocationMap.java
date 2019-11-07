@@ -13,6 +13,12 @@ public class AllocationMap {
 		map_ = new int[w][h];
 	}
 
+	//未割当であるかを返す
+	public boolean isUnassigned(int x, int y) {
+
+		return map_[x][y] == 0;
+	}
+
 	public int get(int x, int y) {
 		return map_[x][y];
 	}

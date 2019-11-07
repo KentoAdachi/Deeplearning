@@ -20,16 +20,16 @@ public class DistributionGeneratorCore {
 		nodes.add(new Hardware(400, "d"));
 
 		IGenerator generator = new GeneratorSimple(nodes, 28, 28);
+//		IGenerator generator = new GeneratorRandom(nodes, 28, 28);
 
 		generator.calc();
-		//		generator.generate();
 		generator.generate();
 
 		for (Hardware hardware : nodes) {
 			System.out.println(hardware);
 		}
 
-		System.out.println("Program succeed");
+		System.out.println("Program completed");
 
 		File file = new File("./resource/test.txt");
 
