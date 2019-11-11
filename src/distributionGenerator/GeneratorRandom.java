@@ -77,4 +77,10 @@ public class GeneratorRandom implements IGenerator {
 
 	}
 
+	@Override
+	public AllocationMap getAllocationMap() {
+		// TODO 自動生成されたメソッド・スタブ
+		return allocationMap_;
+	}
+
 }

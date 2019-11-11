@@ -40,35 +40,6 @@ public class GeneratorSimple implements IGenerator {
 				System.out.println(allocationMap_);
 	}
 
-//	void saiki_simple(int x, int y) {
-//		int l;
-//		for (l = 0; l < nodes_.size(); l++) {
-//			if (nodes_.get(l).num_units_left_ > 0) {
-//
-//				nodes_.get(l).num_units_left_--;
-//				break;
-//			}
-//		}
-//		//		System.out.println(l);
-//
-//		allocationMap_.set(x, y, l + 1);
-//
-//		//		if(l == nodes_.size())return;
-//
-//		//		隣接ユニットを取得する
-//		//初期値について再考する
-//		int min_w = 0;
-//		int min_h = 0;
-//		int max_w = allocationMap_.w_ - 1;
-//		int max_h = allocationMap_.h_ - 1;
-//
-//		if (x + 1 <= max_w) {
-//			saiki_simple(x + 1, y);
-//		} else if (y + 1 <= max_h) {
-//			saiki_simple(0, y + 1);
-//		}
-//
-//	}
 
 	//能力から割り当て数を決定
 	public void calc() {
@@ -98,6 +69,12 @@ public class GeneratorSimple implements IGenerator {
 		}
 		System.out.println("total units : " + tmp);
 
+	}
+
+	@Override
+	public AllocationMap getAllocationMap() {
+		// TODO 自動生成されたメソッド・スタブ
+		return allocationMap_;
 	}
 
 }

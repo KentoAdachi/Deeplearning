@@ -1,5 +1,9 @@
 package distributionGenerator;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class AllocationMap {
 
 	int w_;
@@ -38,5 +42,28 @@ public class AllocationMap {
 
 		return "";
 	}
+
+
+	public void write(File file) throws IOException {
+		FileWriter fw = new FileWriter(file);
+		for (int[] is : map_) {
+//			for (int i : is) {
+//				fw.write(i + ",");
+//			}
+			for (int i = 0; i < is.length; i++) {
+				int j = is[i];
+				if(i==0) {
+					fw.write(j+"");
+				}else {
+					fw.write(","+j);
+				}
+			}
+
+			fw.write("\n");
+
+		}
+		fw.close();
+		System.out.println("file expported to "+ file.getAbsolutePath());
+		}
 
 }

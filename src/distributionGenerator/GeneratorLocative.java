@@ -7,48 +7,106 @@ public class GeneratorLocative implements IGenerator {
 
 	int max_units_;
 	AllocationMap allocationMap_;
-//	DelayMap delayMap_;
+	//	DelayMap delayMap_;
 
 	ArrayList<Hardware> nodes_;
+
+	ArrayList<Unit>listUnit_;
 
 	@Deprecated
 	public GeneratorLocative(ArrayList<Hardware> nodes, int w, int h) {
 		nodes_ = nodes;
 		max_units_ = w * h;
 		allocationMap_ = new AllocationMap(w, h);
-//		delayMap_ = new DelayMap("./resource/delaymap.txt", nodes.size());
+		//		delayMap_ = new DelayMap("./resource/delaymap.txt", nodes.size());
 
 	}
 
 	public GeneratorLocative(ArrayList<Hardware> nodes, AllocationMap map_init) {
 		nodes_ = nodes;
 		allocationMap_ = map_init;
+		listUnit_ = new ArrayList<>();
 	}
-
 
 	//割り当てを決定
 	//初期配置が割り当てられていることを保証して
 	@Override
 	public void generate() {
 
-
 		//注目するノードを決定するリストを作成
 		//nodeの上から順番に初期ノードを登録
+//		ArrayList<Unit> listUnit = new ArrayList<>();
+		for (int x = 0; x < allocationMap_.w_; x++) {
+			for (int y = 0; y < allocationMap_.h_; y++) {
+				if (allocationMap_.get(x, y) != 0) {
+					listUnit_.add(new Unit(x, y, allocationMap_.get(x, y)));
+				}
+			}
+		}
+
+		while (true) {
+			//注目するノードを取り出す
+			Unit unit = listUnit_.remove(0);
+			int x = unit.x_;
+			int y = unit.y_ - 1 ;
+			int parent = unit.parent_;
 
 
-		//注目するノードを取り出す
+			//隣接するノードが空いているか判定するメソッド
 
-		//隣接するノードが空いているか判定するメソッド
-		//優先度は上左右下の順番
-		//ノードが空いていたら埋めて注目リストに追加
+//			上
+			if(x >= 0 && x < allocationMap_.w_ && y >= 0 && y < allocationMap_.h_ && allocationMap_.isUnassigned(x, y)) {
+				listUnit_.add(new Unit(x, y, parent));
+				continue;
+			}
+//			左
+			x = unit.x_ -1 ;
+			y = unit.y_;
+			if(x >= 0 && x < allocationMap_.w_ && y >= 0 && y < allocationMap_.h_ && allocationMap_.isUnassigned(x, y)) {
+				listUnit_.add(new Unit(x, y, parent));
+				continue;
+			}
+//			右
+			x = unit.x_ +1 ;
+			y = unit.y_;
+			if(x >= 0 && x < allocationMap_.w_ && y >= 0 && y < allocationMap_.h_ && allocationMap_.isUnassigned(x, y)) {
+				listUnit_.add(new Unit(x, y, parent));
+				continue;
 
-		//指定するノードが空いているか判定するメソッド
-		//注目するノードがなくなったら終了
+			}
+
+//			下
+			x = unit.x_;
+			y = unit.y_+1;
+			if(x >= 0 && x < allocationMap_.w_ && y >= 0 && y < allocationMap_.h_ && allocationMap_.isUnassigned(x, y)) {
+				listUnit_.add(new Unit(x, y, parent));
+				continue;
+			}
+
+			//優先度は上左右下の順番
+			//ノードが空いていたら埋めて注目リストに追加
+
+			//指定するノードが空いているか判定するメソッド
+			//注目するノードがなくなったら終了
+			break;
+		}
 
 		System.out.println(allocationMap_);
 
 	}
 
+	//指定した座標の周囲の座標を加える
+	public Unit addAdjacent(int x, int y) {
+
+
+
+		//上
+		if(x >= 0 && x < allocationMap_.w_ && allocationMap_.isUnassigned(x, y-1)) {
+			return new Unit(x,y-1,0);
+			}
+		//左
+		return null;
+	}
 
 	//割り当てを決定
 	@Deprecated
@@ -178,6 +236,10 @@ public class GeneratorLocative implements IGenerator {
 
 	}
 
-
+	@Override
+	public AllocationMap getAllocationMap() {
+		// TODO 自動生成されたメソッド・スタブ
+		return allocationMap_;
+	}
 
 }
