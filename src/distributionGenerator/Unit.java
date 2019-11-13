@@ -9,4 +9,10 @@ public class Unit {
 		parent_ = parent;
 
 	}
+
+	@Override
+	public String toString() {
+		return "x : "+x_+" y : "+y_+" parent : " + parent_;
+	}
+
 }

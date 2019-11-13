@@ -11,7 +11,7 @@ public class GeneratorLocative implements IGenerator {
 
 	ArrayList<Hardware> nodes_;
 
-	ArrayList<Unit>listUnit_;
+	ArrayList<Unit> listUnit_;
 
 	@Deprecated
 	public GeneratorLocative(ArrayList<Hardware> nodes, int w, int h) {
@@ -28,14 +28,106 @@ public class GeneratorLocative implements IGenerator {
 		listUnit_ = new ArrayList<>();
 	}
 
+	public void generate() {
+
+		ArrayList<ArrayList<Unit>> unitListList = new ArrayList();
+
+		for (int i = 0; i < nodes_.size(); i++) {
+			ArrayList<Unit> unitList = new ArrayList<Unit>();
+			unitListList.add(unitList);
+		}
+
+		for (int x = 0; x < allocationMap_.w_; x++) {
+			for (int y = 0; y < allocationMap_.h_; y++) {
+				if (allocationMap_.get(x, y) != 0) {
+					unitListList.get(allocationMap_.get(x, y)-1).add(new Unit(x, y, allocationMap_.get(x, y)));
+				}
+			}
+		}
+
+		label:
+		while (true) {
+			for (int i = 0; i < nodes_.size(); i++) {
+
+
+
+				if (unitListList.get(i).isEmpty()) {
+					break label;
+				}
+
+				ArrayList<Unit> unitList = unitListList.get(i);
+				Unit unit = unitList.remove(0);
+				int parent = unit.parent_;
+
+				int x = unit.x_;
+				int y = unit.y_ - 1;
+
+
+
+				for (Unit u : unitList) {
+					System.out.println(u);
+				}
+
+				System.out.println(allocationMap_);
+
+
+				//			上
+				if (x >= 0 && x < allocationMap_.w_ && y >= 0 && y < allocationMap_.h_
+						&& allocationMap_.isUnassigned(x, y)) {
+					allocationMap_.set(x, y, parent);
+					unitList.add(new Unit(x, y, parent));
+					unitList.add(unit);
+					continue;
+				}
+				//			左
+				x = unit.x_ - 1;
+				y = unit.y_;
+				if (x >= 0 && x < allocationMap_.w_ && y >= 0 && y < allocationMap_.h_
+						&& allocationMap_.isUnassigned(x, y)) {
+					allocationMap_.set(x, y, parent);
+					unitList.add(new Unit(x, y, parent));
+					unitList.add(unit);
+					continue;
+				}
+				//			右
+				x = unit.x_ + 1;
+				y = unit.y_;
+				if (x >= 0 && x < allocationMap_.w_ && y >= 0 && y < allocationMap_.h_
+						&& allocationMap_.isUnassigned(x, y)) {
+					allocationMap_.set(x, y, parent);
+					unitList.add(new Unit(x, y, parent));
+					unitList.add(unit);
+					continue;
+					//				continue;
+
+				}
+
+				//			下
+				x = unit.x_;
+				y = unit.y_ + 1;
+				if (x >= 0 && x < allocationMap_.w_ && y >= 0 && y < allocationMap_.h_
+						&& allocationMap_.isUnassigned(x, y)) {
+					allocationMap_.set(x, y, parent);
+					unitList.add(new Unit(x, y, parent));
+					//				unitList.add(unit);
+					continue;
+
+				}
+
+			}
+		}
+
+		System.out.println(allocationMap_);
+	}
+
 	//割り当てを決定
 	//初期配置が割り当てられていることを保証して
-	@Override
-	public void generate() {
+//	@Override
+	public void generate_new() {
 
 		//注目するノードを決定するリストを作成
 		//nodeの上から順番に初期ノードを登録
-//		ArrayList<Unit> listUnit = new ArrayList<>();
+		//		ArrayList<Unit> listUnit = new ArrayList<>();
 		for (int x = 0; x < allocationMap_.w_; x++) {
 			for (int y = 0; y < allocationMap_.h_; y++) {
 				if (allocationMap_.get(x, y) != 0) {
@@ -44,43 +136,69 @@ public class GeneratorLocative implements IGenerator {
 			}
 		}
 
+		for (Unit unit : listUnit_) {
+			System.out.println(unit);
+		}
+
 		while (true) {
 			//注目するノードを取り出す
 			Unit unit = listUnit_.remove(0);
-			int x = unit.x_;
-			int y = unit.y_ - 1 ;
 			int parent = unit.parent_;
+			//			System.out.println(allocationMap_);
 
+			//			for (Unit u : listUnit_) {
+			//				System.out.println(u);
+			//			}
+
+			//リストが空になっていることを確認
+			if (listUnit_.isEmpty()) {
+				break;
+			}
 
 			//隣接するノードが空いているか判定するメソッド
-
-//			上
-			if(x >= 0 && x < allocationMap_.w_ && y >= 0 && y < allocationMap_.h_ && allocationMap_.isUnassigned(x, y)) {
+			int x = unit.x_;
+			int y = unit.y_ - 1;
+			//			上
+			if (x >= 0 && x < allocationMap_.w_ && y >= 0 && y < allocationMap_.h_
+					&& allocationMap_.isUnassigned(x, y)) {
+				allocationMap_.set(x, y, parent);
 				listUnit_.add(new Unit(x, y, parent));
+				listUnit_.add(unit);
 				continue;
 			}
-//			左
-			x = unit.x_ -1 ;
+			//			左
+			x = unit.x_ - 1;
 			y = unit.y_;
-			if(x >= 0 && x < allocationMap_.w_ && y >= 0 && y < allocationMap_.h_ && allocationMap_.isUnassigned(x, y)) {
+			if (x >= 0 && x < allocationMap_.w_ && y >= 0 && y < allocationMap_.h_
+					&& allocationMap_.isUnassigned(x, y)) {
+				allocationMap_.set(x, y, parent);
 				listUnit_.add(new Unit(x, y, parent));
+				listUnit_.add(unit);
 				continue;
 			}
-//			右
-			x = unit.x_ +1 ;
+			//			右
+			x = unit.x_ + 1;
 			y = unit.y_;
-			if(x >= 0 && x < allocationMap_.w_ && y >= 0 && y < allocationMap_.h_ && allocationMap_.isUnassigned(x, y)) {
+			if (x >= 0 && x < allocationMap_.w_ && y >= 0 && y < allocationMap_.h_
+					&& allocationMap_.isUnassigned(x, y)) {
+				allocationMap_.set(x, y, parent);
 				listUnit_.add(new Unit(x, y, parent));
+				listUnit_.add(unit);
 				continue;
+				//				continue;
 
 			}
 
-//			下
+			//			下
 			x = unit.x_;
-			y = unit.y_+1;
-			if(x >= 0 && x < allocationMap_.w_ && y >= 0 && y < allocationMap_.h_ && allocationMap_.isUnassigned(x, y)) {
+			y = unit.y_ + 1;
+			if (x >= 0 && x < allocationMap_.w_ && y >= 0 && y < allocationMap_.h_
+					&& allocationMap_.isUnassigned(x, y)) {
+				allocationMap_.set(x, y, parent);
 				listUnit_.add(new Unit(x, y, parent));
+				listUnit_.add(unit);
 				continue;
+				//				continue;
 			}
 
 			//優先度は上左右下の順番
@@ -88,7 +206,7 @@ public class GeneratorLocative implements IGenerator {
 
 			//指定するノードが空いているか判定するメソッド
 			//注目するノードがなくなったら終了
-			break;
+			//			break;
 		}
 
 		System.out.println(allocationMap_);
@@ -98,12 +216,10 @@ public class GeneratorLocative implements IGenerator {
 	//指定した座標の周囲の座標を加える
 	public Unit addAdjacent(int x, int y) {
 
-
-
 		//上
-		if(x >= 0 && x < allocationMap_.w_ && allocationMap_.isUnassigned(x, y-1)) {
-			return new Unit(x,y-1,0);
-			}
+		if (x >= 0 && x < allocationMap_.w_ && allocationMap_.isUnassigned(x, y - 1)) {
+			return new Unit(x, y - 1, 0);
+		}
 		//左
 		return null;
 	}
