@@ -30,7 +30,7 @@ public class GeneratorLocative implements IGenerator {
 
 	public void generate() {
 
-		ArrayList<ArrayList<Unit>> unitListList = new ArrayList();
+		ArrayList<ArrayList<Unit>> unitListList = new ArrayList<ArrayList<Unit>>();
 
 		for (int i = 0; i < nodes_.size(); i++) {
 			ArrayList<Unit> unitList = new ArrayList<Unit>();
@@ -45,14 +45,27 @@ public class GeneratorLocative implements IGenerator {
 			}
 		}
 
+
+
 		label:
 		while (true) {
+
+			boolean next = false;
+			for (ArrayList<Unit> arrayList : unitListList) {
+				if(!arrayList.isEmpty()) {
+					next = true;
+				}
+			}
+
+			if(!next)break;
+
 			for (int i = 0; i < nodes_.size(); i++) {
 
 
 
 				if (unitListList.get(i).isEmpty()) {
-					break label;
+					continue;
+//					break label;
 				}
 
 				ArrayList<Unit> unitList = unitListList.get(i);
