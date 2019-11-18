@@ -71,14 +71,17 @@ public class GeneratorLocative extends DistributionGenerator implements IGenerat
 				//				for (Unit u : unitList) {
 				//					System.out.println(u);
 				//				}
-				//				System.out.println(allocationMap_);
+				System.out.println(allocationMap_);
+				System.out.println("break");
 				//				4近傍で作成する場合
 				//			上
 				if (x >= 0 && x < allocationMap_.w_ && y >= 0 && y < allocationMap_.h_
 						&& allocationMap_.isUnassigned(x, y)) {
 					allocationMap_.set(x, y, parent);
+					//					unitList.add(unit);
+					unitList.add(0, unit);
 					unitList.add(new Unit(x, y, parent));
-					unitList.add(unit);
+
 					continue;
 				}
 				//			左
@@ -87,8 +90,9 @@ public class GeneratorLocative extends DistributionGenerator implements IGenerat
 				if (x >= 0 && x < allocationMap_.w_ && y >= 0 && y < allocationMap_.h_
 						&& allocationMap_.isUnassigned(x, y)) {
 					allocationMap_.set(x, y, parent);
+					unitList.add(0, unit);
 					unitList.add(new Unit(x, y, parent));
-					unitList.add(unit);
+
 					continue;
 				}
 				//			右
@@ -97,8 +101,9 @@ public class GeneratorLocative extends DistributionGenerator implements IGenerat
 				if (x >= 0 && x < allocationMap_.w_ && y >= 0 && y < allocationMap_.h_
 						&& allocationMap_.isUnassigned(x, y)) {
 					allocationMap_.set(x, y, parent);
+					unitList.add(0, unit);
 					unitList.add(new Unit(x, y, parent));
-					unitList.add(unit);
+
 					continue;
 					//				continue;
 
@@ -109,6 +114,7 @@ public class GeneratorLocative extends DistributionGenerator implements IGenerat
 				if (x >= 0 && x < allocationMap_.w_ && y >= 0 && y < allocationMap_.h_
 						&& allocationMap_.isUnassigned(x, y)) {
 					allocationMap_.set(x, y, parent);
+					//					unitList.add(unit);
 					unitList.add(new Unit(x, y, parent));
 					//				unitList.add(unit);
 					continue;
@@ -127,7 +133,6 @@ public class GeneratorLocative extends DistributionGenerator implements IGenerat
 		for (Hardware hardware : nodes_) {
 			sum += hardware.performance_;
 		}
-
 
 		performance_percentages_ = new ArrayList<>();
 		for (int i = 0; i < nodes_.size(); i++) {

@@ -33,9 +33,10 @@ public class AllocationMap {
 
 	@Override
 	public String toString() {
-		for (int[] is : map_) {
-			for (int i : is) {
-				System.out.print(i + " ");
+
+		for (int y = 0; y < h_; y++) {
+			for (int x = 0; x < w_; x++) {
+				System.out.print(get(x, y)+ " ");
 			}
 			System.out.println("");
 		}
