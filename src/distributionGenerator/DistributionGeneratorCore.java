@@ -45,8 +45,6 @@ public class DistributionGeneratorCore {
 
 		try {
 			generator.getAllocationMap().write(file);
-//			System.out.println(generator.getAllocationMap());
-
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
