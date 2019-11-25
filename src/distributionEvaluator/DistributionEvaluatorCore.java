@@ -35,6 +35,7 @@ public class DistributionEvaluatorCore {
 		DistributionEvaluator evaluator = new DistributionEvaluator(allocation_map, nodes);
 
 		evaluator.evaluatePerformanceBallance();
+		evaluator.evaluateTranslatedDataAmount();
 
 		return;
 	}

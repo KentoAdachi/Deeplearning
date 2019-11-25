@@ -29,8 +29,8 @@ public class DistributionGeneratorCore {
 //		System.out.println(alloc_init);
 
 //		IGenerator generator = new GeneratorSimple(nodes, 28, 28);
-		IGenerator generator = new GeneratorLocative(nodes, alloc_init);
-//		IGenerator generator = new GeneratorRandom(nodes, 28, 28);
+//		IGenerator generator = new GeneratorLocative(nodes, alloc_init);
+		IGenerator generator = new GeneratorRandom(nodes, 28, 28);
 
 		generator.calc();
 		generator.generate();

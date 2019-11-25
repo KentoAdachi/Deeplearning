@@ -39,36 +39,51 @@ public class DistributionEvaluator {
 			}
 		}
 
-		for (Integer integer : totalUnits) {
-			System.out.println("units " + integer);
+		double sum = 0;
+		for (int i = 0; i < totalUnits.size(); i++) {
+			System.out.println("unit amount ["+i+"] : "+ totalUnits.get(i));
+			sum+= totalUnits.get(i);
+		}
+		for (int i = 0; i < totalUnits.size(); i++) {
+			System.out.println("unit ratio [" + (i + 1) + "] : " + totalUnits.get(i) / sum);
 		}
 
 	}
 
 	//送受信データ量
+	//データの重複を考慮していない
 	public void evaluateTranslatedDataAmount() {
+
+		ArrayList<Integer> datas = new ArrayList<>();
+		for (Hardware hardware : nodes_) {
+			datas.add(0);
+		}
+
 		for (int y = 0; y < allocation_map_.h_; y++) {
 			for (int x = 0; x < allocation_map_.w_; x++) {
 
-				int current_unit = allocation_map_.get(x, y);
-				int radius = filter_size_ / 2 - 1;
+				int current_unit = allocation_map_.get(x, y) - 1;
+				int radius = filter_size_ / 2;
 				//8近傍を見る
 
 				for (int j = y - radius; j <= y + radius; j++) {
-					for (int i = x - radius; i < x + radius; i++) {
-						if (j == y && i == x) {
-							int comparasive_unit = allocation_map_.get(i, j);
-
-							if (current_unit == comparasive_unit) {
-
+					for (int i = x - radius; i <= x + radius; i++) {
+						//						Todo : ijが範囲内にあることを保証する
+						if (i >= 0 && j >= 0 && i < allocation_map_.w_ && j < allocation_map_.h_) {
+							int comparasive_unit = allocation_map_.get(i, j) - 1;
+							if (current_unit != comparasive_unit) {
+								datas.set(current_unit, datas.get(current_unit) + 1);
 							}
-
 						}
 					}
 				}
 
 			}
 		}
+		for (int i = 0; i < datas.size(); i++) {
+			System.out.println("data translated amount["+(i+1)+"] : "+datas.get(i));
+		}
+
 	}
 
 }
