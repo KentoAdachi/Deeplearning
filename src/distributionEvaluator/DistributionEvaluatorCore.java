@@ -21,9 +21,9 @@ public class DistributionEvaluatorCore {
 		nodes.add(new Hardware(300, "c"));
 		nodes.add(new Hardware(400, "d"));
 
-		for (Hardware hardware : nodes) {
-			System.out.println(hardware);
-		}
+//		for (Hardware hardware : nodes) {
+//			System.out.println(hardware);
+//		}
 
 		//マップの読み取り
 

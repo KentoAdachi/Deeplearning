@@ -26,10 +26,16 @@ public class DistributionGeneratorCore {
 		alloc_init.set(10, 10, 3);
 		alloc_init.set(27, 27, 4);
 
-//		System.out.println(alloc_init);
+//		AllocationMap alloc_init = new AllocationMap(10, 10);
+//		alloc_init.set(0, 0, 1);
+//		alloc_init.set(9, 0, 2);
+//		alloc_init.set(9, 9, 3);
+//		alloc_init.set(0, 9, 4);
 
-//		IGenerator generator = new GeneratorSimple(nodes, 28, 28);
-		IGenerator generator = new GeneratorLocative(nodes, alloc_init);
+		System.out.println(alloc_init);
+
+		IGenerator generator = new GeneratorSimple(nodes, 28, 28);
+//		IGenerator generator = new GeneratorLocative(nodes, alloc_init);
 //		IGenerator generator = new GeneratorRandom(nodes, 28, 28);
 
 		generator.calc();
