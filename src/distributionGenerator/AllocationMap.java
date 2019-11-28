@@ -57,6 +57,11 @@ public class AllocationMap {
 		br.close();
 	}
 
+	public boolean isAllocable(int x,int y) {
+		return (x >= 0 && x < w_ && y >= 0 && y < h_
+				&& isUnassigned(x, y));
+	}
+
 	//未割当であるかを返す
 	public boolean isUnassigned(int x, int y) {
 
