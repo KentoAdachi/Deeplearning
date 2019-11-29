@@ -65,7 +65,6 @@ public class DistributionEvaluator {
 				int current_unit = allocation_map_.get(x, y) - 1;
 				int radius = filter_size_ / 2;
 				//8近傍を見る
-
 				for (int j = y - radius; j <= y + radius; j++) {
 					for (int i = x - radius; i <= x + radius; i++) {
 						//						Todo : ijが範囲内にあることを保証する
