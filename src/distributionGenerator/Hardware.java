@@ -11,6 +11,9 @@ public class Hardware {
 
 //	int num_units_;
 //	int num_units_left_;
+	// int 緯度
+	// int 経度
+
 
 	String name_;
 
@@ -22,6 +25,12 @@ public class Hardware {
 		name_ = name;
 
 	}
+
+	/*	相手のノードを指定して通信．
+	 * 座標を元に距離を算出，距離とパケットサイズを元に，成功確率が決定
+	 * public 通信 send(Hardware dist);
+	 * */
+
 
 	@Override
 	public String toString() {
