@@ -85,4 +85,12 @@ public class DistributionEvaluator {
 
 	}
 
+	//データの重複を考慮する送受信データ量
+	public void evaluateTranslatedDataAmount_mod() {
+		for (int i = 0; i < nodes_.size(); i++) {
+			Hardware node = nodes_.get(i);
+
+		}
+	}
+
 }
