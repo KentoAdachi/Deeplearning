@@ -19,7 +19,7 @@ public class DistributionEvaluatorCore {
 		nodes.add(new Hardware(100, "a"));
 		nodes.add(new Hardware(200, "b"));
 		nodes.add(new Hardware(300, "c"));
-		nodes.add(new Hardware(400, "d"));
+//		nodes.add(new Hardware(400, "d"));
 
 //		for (Hardware hardware : nodes) {
 //			System.out.println(hardware);
@@ -36,6 +36,8 @@ public class DistributionEvaluatorCore {
 
 		evaluator.evaluatePerformanceBallance();
 		evaluator.evaluateTranslatedDataAmount();
+
+		evaluator.evaluateTranslatedDataAmount_mod();
 
 		return;
 	}
