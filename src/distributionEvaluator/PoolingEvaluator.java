@@ -10,8 +10,8 @@ public class PoolingEvaluator extends DistributionEvaluator implements IEvaluato
 	public PoolingEvaluator(AllocationMap map, ArrayList<Hardware> nodes) {
 		super(map, nodes);
 		// TODO 自動生成されたコンストラクター・スタブ
-		stride_ = 4;
-		filter_size_ = 4;
+		stride_ = 2;
+		filter_size_ = 2;
 	}
 
 	@Override
@@ -41,8 +41,8 @@ public class PoolingEvaluator extends DistributionEvaluator implements IEvaluato
 
 								//						Todo : ijが範囲内にあることを保証する
 								if (i >= 0 && j >= 0 && i < allocation_map_.w_ && j < allocation_map_.h_) {
-									System.out.println(x + "," + y + "  " + i + "," + j + "  " + allocation_map_.get(x, y)
-									+ "  " + allocation_map_.get(i, j));
+//									System.out.println(x + "," + y + "  " + i + "," + j + "  " + allocation_map_.get(x, y)
+//									+ "  " + allocation_map_.get(i, j));
 									int comparasive_unit = allocation_map_.get(i, j) - 1;
 									if (current_unit == num_node && current_unit != comparasive_unit) {
 										//隣接ノードのうち所属の違うノード
@@ -67,13 +67,13 @@ public class PoolingEvaluator extends DistributionEvaluator implements IEvaluato
 
 								//						Todo : ijが範囲内にあることを保証する
 								if (i >= 0 && j >= 0 && i < allocation_map_.w_ && j < allocation_map_.h_) {
-									System.out.println(x + "," + y + "  " + i + "," + j + "  " + allocation_map_.get(x, y)
-									+ "  " + allocation_map_.get(i, j));
+//									System.out.println(x + "," + y + "  " + i + "," + j + "  " + allocation_map_.get(x, y)
+//									+ "  " + allocation_map_.get(i, j));
 									int comparasive_unit = allocation_map_.get(i, j) - 1;
 									if (current_unit == num_node && current_unit != comparasive_unit) {
 										//隣接ノードのうち所属の違うノード
 										white_map.set(i, j, comparasive_unit + 1);
-										System.out.println("!");
+//										System.out.println("!");
 
 									}
 								}
