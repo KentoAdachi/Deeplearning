@@ -32,12 +32,13 @@ public class DistributionEvaluatorCore {
 		AllocationMap allocation_map = new AllocationMap(file);
 		System.out.println(allocation_map);
 
-		DistributionEvaluator evaluator = new DistributionEvaluator(allocation_map, nodes);
+//		IEvaluator evaluator = new ConvolutionEvaluator(allocation_map, nodes);
+		IEvaluator evaluator = new PoolingEvaluator(allocation_map, nodes);
 
 		evaluator.evaluatePerformanceBallance();
 		evaluator.evaluateTranslatedDataAmount();
 
-		evaluator.evaluateTranslatedDataAmount_mod();
+		evaluator.evaluateTranslatedDataAmount();
 
 		return;
 	}

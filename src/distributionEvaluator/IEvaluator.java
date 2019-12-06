@@ -8,5 +8,6 @@ public interface IEvaluator {
 
 
 //	評価
-	public void evaluate();
+	public void evaluatePerformanceBallance();
+	 public void evaluateTranslatedDataAmount();
 }
