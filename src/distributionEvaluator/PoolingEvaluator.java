@@ -14,13 +14,19 @@ public class PoolingEvaluator extends DistributionEvaluator implements IEvaluato
 		filter_size_ = 2;
 	}
 
+	public PoolingEvaluator(AllocationMap map, ArrayList<Hardware> nodes, int stride, int filter_size) {
+		super(map, nodes);
+		stride_ = stride;
+		filter_size_ = filter_size;
+	}
+
 	@Override
 	public void evaluateTranslatedDataAmount() {
 		// TODO 自動生成されたメソッド・スタブ
-		evaluateTranslatedDataAmount_A();
+		evaluateTranslatedDataAmount_C();
 	}
 
-	public void evaluateTranslatedDataAmount_A() {
+	public void evaluateTranslatedDataAmount_C() {
 		for (int num_node = 0; num_node < nodes_.size(); num_node++) {
 			Hardware node = nodes_.get(num_node);
 			AllocationMap white_map = new AllocationMap(this.allocation_map_.w_, this.allocation_map_.h_);
@@ -41,8 +47,8 @@ public class PoolingEvaluator extends DistributionEvaluator implements IEvaluato
 
 								//						Todo : ijが範囲内にあることを保証する
 								if (i >= 0 && j >= 0 && i < allocation_map_.w_ && j < allocation_map_.h_) {
-//									System.out.println(x + "," + y + "  " + i + "," + j + "  " + allocation_map_.get(x, y)
-//									+ "  " + allocation_map_.get(i, j));
+									//									System.out.println(x + "," + y + "  " + i + "," + j + "  " + allocation_map_.get(x, y)
+									//									+ "  " + allocation_map_.get(i, j));
 									int comparasive_unit = allocation_map_.get(i, j) - 1;
 									if (current_unit == num_node && current_unit != comparasive_unit) {
 										//隣接ノードのうち所属の違うノード
@@ -67,13 +73,13 @@ public class PoolingEvaluator extends DistributionEvaluator implements IEvaluato
 
 								//						Todo : ijが範囲内にあることを保証する
 								if (i >= 0 && j >= 0 && i < allocation_map_.w_ && j < allocation_map_.h_) {
-//									System.out.println(x + "," + y + "  " + i + "," + j + "  " + allocation_map_.get(x, y)
-//									+ "  " + allocation_map_.get(i, j));
+									//									System.out.println(x + "," + y + "  " + i + "," + j + "  " + allocation_map_.get(x, y)
+									//									+ "  " + allocation_map_.get(i, j));
 									int comparasive_unit = allocation_map_.get(i, j) - 1;
 									if (current_unit == num_node && current_unit != comparasive_unit) {
 										//隣接ノードのうち所属の違うノード
 										white_map.set(i, j, comparasive_unit + 1);
-//										System.out.println("!");
+										//										System.out.println("!");
 
 									}
 								}
@@ -103,6 +109,21 @@ public class PoolingEvaluator extends DistributionEvaluator implements IEvaluato
 				System.out.println("node " + (i + 1) + " count :" + cnt_node.get(i));
 			}
 		}
+	}
+
+	public AllocationMap generateOutputMap() {
+
+		int out_h = 1 + (allocation_map_.h_ - filter_size_) / stride_;
+		int out_w = 1 + (allocation_map_.w_ - filter_size_) / stride_;
+
+		AllocationMap output_map = new AllocationMap(out_w, out_h);
+		for (int x = 0; x < allocation_map_.w_; x+=stride_) {
+			for (int y = 0; y < allocation_map_.h_; y+=stride_) {
+
+			}
+		}
+
+		return null;
 	}
 
 }

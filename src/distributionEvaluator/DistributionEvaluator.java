@@ -12,6 +12,7 @@ public class DistributionEvaluator {
 
 	int filter_size_;
 	int stride_;
+	int padding_;
 
 	public boolean enable_zero_padding_ = false;
 
@@ -21,6 +22,7 @@ public class DistributionEvaluator {
 
 		filter_size_ = 3;
 		stride_ = 1;
+		padding_ = 1;
 	}
 
 	//処理割り当て比率

@@ -38,7 +38,7 @@ public class DistributionEvaluatorCore {
 		evaluator.evaluatePerformanceBallance();
 		evaluator.evaluateTranslatedDataAmount();
 
-		evaluator.evaluateTranslatedDataAmount();
+//		evaluator.evaluateTranslatedDataAmount();
 
 		return;
 	}
