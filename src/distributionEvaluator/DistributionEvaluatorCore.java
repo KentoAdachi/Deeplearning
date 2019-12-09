@@ -38,6 +38,9 @@ public class DistributionEvaluatorCore {
 		evaluator.evaluatePerformanceBallance();
 		evaluator.evaluateTranslatedDataAmount();
 
+		evaluator.getOutputMap();
+
+
 //		evaluator.evaluateTranslatedDataAmount();
 
 		return;

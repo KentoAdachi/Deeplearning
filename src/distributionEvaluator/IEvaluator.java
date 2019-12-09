@@ -1,5 +1,7 @@
 package distributionEvaluator;
 
+import distributionGenerator.AllocationMap;
+
 public interface IEvaluator {
 
 	//評価項目
@@ -10,4 +12,5 @@ public interface IEvaluator {
 //	評価
 	public void evaluatePerformanceBallance();
 	 public void evaluateTranslatedDataAmount();
+	public AllocationMap getOutputMap();
 }

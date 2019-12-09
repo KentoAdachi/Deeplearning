@@ -193,4 +193,10 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 			}
 		}
 	}
+
+	@Override
+	public AllocationMap getOutputMap() {
+		// TODO 自動生成されたメソッド・スタブ
+		return allocation_map_;
+	}
 }

@@ -111,19 +111,43 @@ public class PoolingEvaluator extends DistributionEvaluator implements IEvaluato
 		}
 	}
 
-	public AllocationMap generateOutputMap() {
+	public AllocationMap getOutputMap() {
 
 		int out_h = 1 + (allocation_map_.h_ - filter_size_) / stride_;
 		int out_w = 1 + (allocation_map_.w_ - filter_size_) / stride_;
 
 		AllocationMap output_map = new AllocationMap(out_w, out_h);
-		for (int x = 0; x < allocation_map_.w_; x+=stride_) {
-			for (int y = 0; y < allocation_map_.h_; y+=stride_) {
+//		for (int x = 0; x < allocation_map_.w_; x+=stride_) {
+//			for (int y = 0; y < allocation_map_.h_; y+=stride_) {
+		//奇数の場合
 
+		if (filter_size_ % 2 == 1) {
+			int radius = filter_size_ / 2;
+			for (int x = radius; x < allocation_map_.w_; x += stride_) {
+				for (int y = radius; y < allocation_map_.h_; y += stride_) {
+//					int current_unit = allocation_map_.get(x, y) - 1;
+					int out_x =  1 + (x - filter_size_) / stride_;
+					int out_y = 1 + (y - filter_size_) / stride_;
+					output_map.set(out_x, out_y, allocation_map_.get(x, y));
+
+				}
+			}
+		} else {
+			//偶数の場合
+			int radius = filter_size_ / 2 - 1;
+			for (int x = radius; x < allocation_map_.w_; x += stride_) {
+				for (int y = radius; y < allocation_map_.h_; y += stride_) {
+//					int current_unit = allocation_map_.get(x, y) - 1;
+					int out_x =  1 + (x - filter_size_) / stride_;
+					int out_y = 1 + (y - filter_size_) / stride_;
+					output_map.set(out_x, out_y, allocation_map_.get(x, y));
+				}
 			}
 		}
 
-		return null;
+		System.out.println(output_map);
+
+		return output_map;
 	}
 
 }
