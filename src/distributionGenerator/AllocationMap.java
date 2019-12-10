@@ -13,6 +13,8 @@ public class AllocationMap {
 	public int h_;
 	int[][] map_;
 
+
+
 	public AllocationMap(int w, int h) {
 		// TODO 自動生成されたコンストラクター・スタブ
 		w_ = w;
