@@ -9,7 +9,7 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 
 	public ConvolutionEvaluator(AllocationMap map, ArrayList<Hardware> nodes) {
 		super(map, nodes);
-		// TODO 自動生成されたコンストラクター・スタブ
+		// TODO 自動生成されたコンストラクター・ スタブ 
 	}
 
 	@Override
