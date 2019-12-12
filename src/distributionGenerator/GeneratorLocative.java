@@ -8,7 +8,7 @@ public class GeneratorLocative extends DistributionGenerator implements IGenerat
 	ArrayList<Double> performance_percentages_;
 
 	public GeneratorLocative(ArrayList<Hardware> nodes, AllocationMap map_init) {
-		nodes_ = nodes;
+		nodes_ =  nodes;
 		allocationMap_ = map_init;
 
 		//		max_units_ = allocationMap_.h_*allocationMap_.w_;

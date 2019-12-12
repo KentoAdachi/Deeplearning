@@ -26,11 +26,12 @@ public class AllocationMap {
 	//ノードの座標から割り当てる
 	public AllocationMap(int w, int h, ArrayList<Hardware> calc_nodes) {
 
+
 		this(w,h);
 
 		for (int i = 0; i < calc_nodes.size(); i++) {
 			Hardware node = calc_nodes.get(i);
-			this.set(node.x_, node.y_, i);
+			this.set(node.x_, node.y_, i+1);
 		}
 
 

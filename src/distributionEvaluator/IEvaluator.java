@@ -10,7 +10,7 @@ public interface IEvaluator {
 
 
 //	評価
-	public void evaluatePerformanceBallance();
+	public double evaluatePerformanceBallance();
 	 public void evaluateTranslatedDataAmount();
 	public AllocationMap getOutputMap();
 }

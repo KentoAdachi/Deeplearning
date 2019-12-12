@@ -1,27 +1,36 @@
 package distributionEvaluator;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+import distributionGenerator.AllocationMap;
+import distributionGenerator.GeneratorRandom;
 import distributionGenerator.Hardware;
+import distributionGenerator.IGenerator;
 
 public class DistributionEvaluatorScene1 {
 
 	static long SEED = 0;
+	static Random rand = new Random(SEED);
 
 
+	static void execute(int batch, int step, int from, int to) throws IOException {
 
-	public static void main(String[] args) throws IOException {
 
-		//		DelayMap map = new DelayMap("./resource/delaymap.txt", 3);
-		//		System.out.println(map);
+		for (int num_nodes = from; num_nodes <= to; num_nodes+=step) {
+			for (int i = 0; i < batch; i++) {
+				scene(num_nodes);
+			}
+		}
+	}
+
+	static void scene(int num_nodes) throws IOException {
 
 		ArrayList<Hardware> nodes = new ArrayList<Hardware>();
-
-
-		Random rand = new Random(SEED);
 
 		for (int x = 0; x < 10; x++) {
 			for (int y = 0; y < 10; y++) {
@@ -38,8 +47,67 @@ public class DistributionEvaluatorScene1 {
 			System.out.println(hardware);
 		}
 
-//		AllocationMap map = new AllocationMap(10, 10, nodes.subList(0, 3));
-//		IGenerator generator = new GeneratorLocative(nodes.subList(0, 3))
+		ArrayList<Hardware> nodes_calc = new ArrayList<Hardware>(nodes.subList(0, num_nodes));
+
+
+		AllocationMap map = new AllocationMap(10, 10, nodes_calc);
+
+		System.out.println(map);
+
+//		IGenerator generator = new GeneratorLocative(nodes_calc,map);
+		IGenerator generator = new GeneratorRandom(nodes_calc, 10, 10);
+
+		generator.calc();
+		generator.generate();
+
+		for (Hardware hardware : nodes_calc) {
+			System.out.println(hardware);
+		}
+
+//		System.out.println("Program completed");
+
+		File file = new File("./resource/test.txt");
+
+		try {
+			generator.getAllocationMap().write(file);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		System.out.println("filepath : " + file.getPath());
+
+
+		ConvolutionEvaluator evaluator = new ConvolutionEvaluator(map, nodes_calc);
+
+		double res_p =  evaluator.evaluatePerformanceBallance();
+
+		File output = new File("./resource/output.txt");
+		System.out.println("filepath : " + output.getPath());
+		FileWriter fw = new FileWriter(output,true);
+
+		fw.write("計算ノードの数 :,"+ nodes_calc.size() +",評価 : ,"+res_p+"\n");
+
+		fw.close();
+	}
+
+	public static void main(String[] args) throws IOException {
+
+		//		DelayMap map = new DelayMap("./resource/delaymap.txt", 3);
+		//		System.out.println(map);
+
+
+		File output = new File("./resource/output.txt");
+		System.out.println("filepath : " + output.getPath());
+		FileWriter fw = new FileWriter(output);
+		fw.close();
+
+		System.out.println("start");
+		execute(100, 1, 1, 100);
+//		scene(100);
+
+
+//ここからループ
+
+
 
 
 

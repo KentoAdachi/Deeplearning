@@ -51,6 +51,10 @@ public class Hardware {
 	public String toString() {
 //		return "name : " + name_ + " performance : " + performance_ + " num_units_ : " + num_units_
 //				+ " num_units_left_ : " + num_units_left_;
+
+		if(x_ != -1 || y_ != -1)
+			return  "name : " + name_ + " performance : " + performance_ + " x : "+x_+" y: "+y_;
+
 		return "name : " + name_ + " performance : " + performance_ ;
 	}
 

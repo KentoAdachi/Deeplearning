@@ -26,7 +26,7 @@ public class DistributionEvaluator {
 	}
 
 	//処理割り当て比率
-	public void evaluatePerformanceBallance() {
+	public void evaluatePerformanceBallanceA() {
 
 		ArrayList<Integer> totalUnits = new ArrayList<>();
 		for (int i = 0; i < nodes_.size(); i++) {
@@ -51,6 +51,52 @@ public class DistributionEvaluator {
 		for (int i = 0; i < totalUnits.size(); i++) {
 			System.out.println("unit ratio [" + (i + 1) + "] : " + totalUnits.get(i) / sum);
 		}
+
+	}
+
+	public double evaluatePerformanceBallance() {
+		ArrayList<Integer> totalUnits = new ArrayList<>();
+		for (int i = 0; i < nodes_.size(); i++) {
+			totalUnits.add(0);
+		}
+
+		for (int y = 0; y < allocation_map_.h_; y++) {
+			for (int x = 0; x < allocation_map_.w_; x++) {
+
+				int current_unit = allocation_map_.get(x, y) - 1;
+				int tmp = totalUnits.get(current_unit);
+				totalUnits.set(current_unit, tmp + 1);
+
+			}
+		}
+
+		double sum = 0;
+		double sump = 0;
+		double qsum = 0;
+
+		for (int i = 0; i < totalUnits.size(); i++) {
+			System.out.println("unit amount [" + i + "] : " + totalUnits.get(i));
+			sum += totalUnits.get(i);
+			sump += nodes_.get(i).performance_;
+		}
+		for (int i = 0; i < totalUnits.size(); i++) {
+
+			double ratio =  totalUnits.get(i) / sum;
+			double p_ratio = nodes_.get(i).performance_ / sump;
+			System.out.println("unit ratio [" + (i + 1) + "] : " + ratio);
+			System.out.println("performance ratio [" + (i + 1) + "] : " + p_ratio);
+
+			qsum += (ratio - p_ratio)*(ratio - p_ratio);
+
+		}
+
+		double ret = qsum / nodes_.size();
+		ret = Math.sqrt(ret);
+
+		System.out.println(ret);
+
+		return ret;
+
 
 	}
 
