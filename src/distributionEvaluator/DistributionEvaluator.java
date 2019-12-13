@@ -62,7 +62,6 @@ public class DistributionEvaluator {
 
 		for (int y = 0; y < allocation_map_.h_; y++) {
 			for (int x = 0; x < allocation_map_.w_; x++) {
-
 				int current_unit = allocation_map_.get(x, y) - 1;
 				int tmp = totalUnits.get(current_unit);
 				totalUnits.set(current_unit, tmp + 1);
