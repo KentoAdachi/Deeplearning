@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.Random;
 
 import distributionGenerator.AllocationMap;
-import distributionGenerator.GeneratorRandom;
+import distributionGenerator.GeneratorLocative;
 import distributionGenerator.Hardware;
 import distributionGenerator.IGenerator;
 
@@ -34,8 +34,6 @@ public class DistributionEvaluatorScene1 {
 			}
 
 
-
-
 			for (int num_nodes = from; num_nodes <= to; num_nodes += step) {
 				scene(num_nodes,nodes);
 			}
@@ -50,8 +48,8 @@ public class DistributionEvaluatorScene1 {
 
 		System.out.println(map);
 
-//				IGenerator generator = new GeneratorLocative(nodes_calc,map);
-		IGenerator generator = new GeneratorRandom(nodes_calc, 10, 10);
+		IGenerator generator = new GeneratorLocative(nodes_calc,map);
+//		IGenerator generator = new GeneratorRandom(nodes_calc, 10, 10);
 
 		generator.calc();
 		generator.generate();
@@ -70,6 +68,9 @@ public class DistributionEvaluatorScene1 {
 			ex.printStackTrace();
 		}
 		System.out.println("filepath : " + file.getPath());
+
+
+		map = generator.getAllocationMap();
 
 		ConvolutionEvaluator evaluator = new ConvolutionEvaluator(map, nodes_calc);
 

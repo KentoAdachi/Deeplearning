@@ -91,8 +91,9 @@ public class DistributionEvaluator {
 
 		double ret = qsum / nodes_.size();
 		ret = Math.sqrt(ret);
+		ret *= nodes_.size();//全体の誤差
 
-		System.out.println(ret);
+//		System.out.println(ret);
 
 		return ret;
 
