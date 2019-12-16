@@ -54,18 +54,19 @@ public class DistributionEvaluator {
 
 	}
 
+	//
 	public double evaluatePerformanceBallance() {
 		ArrayList<Integer> totalUnits = new ArrayList<>();
 		for (int i = 0; i < nodes_.size(); i++) {
 			totalUnits.add(0);
 		}
 
+
 		for (int y = 0; y < allocation_map_.h_; y++) {
 			for (int x = 0; x < allocation_map_.w_; x++) {
 				int current_unit = allocation_map_.get(x, y) - 1;
 				int tmp = totalUnits.get(current_unit);
 				totalUnits.set(current_unit, tmp + 1);
-
 			}
 		}
 
@@ -84,7 +85,6 @@ public class DistributionEvaluator {
 			double p_ratio = nodes_.get(i).performance_ / sump;
 			System.out.println("unit ratio [" + (i + 1) + "] : " + ratio);
 			System.out.println("performance ratio [" + (i + 1) + "] : " + p_ratio);
-
 			qsum += (ratio - p_ratio)*(ratio - p_ratio);
 
 		}

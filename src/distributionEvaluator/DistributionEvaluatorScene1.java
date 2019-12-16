@@ -87,9 +87,7 @@ public class DistributionEvaluatorScene1 {
 
 	public static void main(String[] args) throws IOException {
 
-		//		DelayMap map = new DelayMap("./resource/delaymap.txt", 3);
-		//		System.out.println(map);
-
+		//Initialize output file.
 		File output = new File("./resource/output.txt");
 		System.out.println("filepath : " + output.getPath());
 		FileWriter fw = new FileWriter(output);
@@ -97,31 +95,6 @@ public class DistributionEvaluatorScene1 {
 
 		System.out.println("start");
 		execute(100, 1, 1, 100);
-		//		scene(100);
-
-		//ここからループ
-
-		//		for (Hardware hardware : nodes) {
-		//			System.out.println(hardware);
-		//		}
-
-		//マップの読み取り
-
-		//		File file = new File("./resource/test.txt");
-		//
-		//		AllocationMap allocation_map = new AllocationMap(file);
-		//		System.out.println(allocation_map);
-		//
-		////		IEvaluator evaluator = new ConvolutionEvaluator(allocation_map, nodes);
-		//		IEvaluator evaluator = new PoolingEvaluator(allocation_map, nodes);
-		//
-		//		evaluator.evaluatePerformanceBallance();
-		//		evaluator.evaluateTranslatedDataAmount();
-		//
-		//		evaluator.getOutputMap();
-
-		//		evaluator.evaluateTranslatedDataAmount();
-
 		return;
 	}
 

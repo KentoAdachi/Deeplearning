@@ -26,6 +26,7 @@ public class DistributionGeneratorCore {
 //		alloc_init.set(10, 10, 3);
 //		alloc_init.set(27, 27, 4);
 
+//		Random rand = new Random
 		AllocationMap alloc_init = new AllocationMap(10, 10);
 		alloc_init.set(0, 0, 1);
 		alloc_init.set(9, 0, 2);

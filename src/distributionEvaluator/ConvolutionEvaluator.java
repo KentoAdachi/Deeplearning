@@ -44,7 +44,6 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 						}
 					}
 				}
-
 			}
 		}
 		for (int i = 0; i < datas.size(); i++) {
@@ -52,7 +51,6 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 		}
 
 	}
-
 
 	public void evaluateTranslatedDataAmount_C() {
 		for (int num_node = 0; num_node < nodes_.size(); num_node++) {
@@ -75,8 +73,8 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 
 								//						Todo : ijが範囲内にあることを保証する
 								if (i >= 0 && j >= 0 && i < allocation_map_.w_ && j < allocation_map_.h_) {
-//									System.out.println(x + "," + y + "  " + i + "," + j + "  " + allocation_map_.get(x, y)
-//									+ "  " + allocation_map_.get(i, j));
+									//									System.out.println(x + "," + y + "  " + i + "," + j + "  " + allocation_map_.get(x, y)
+									//									+ "  " + allocation_map_.get(i, j));
 									int comparasive_unit = allocation_map_.get(i, j) - 1;
 									if (current_unit == num_node && current_unit != comparasive_unit) {
 										//隣接ノードのうち所属の違うノード
@@ -101,13 +99,13 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 
 								//						Todo : ijが範囲内にあることを保証する
 								if (i >= 0 && j >= 0 && i < allocation_map_.w_ && j < allocation_map_.h_) {
-//									System.out.println(x + "," + y + "  " + i + "," + j + "  " + allocation_map_.get(x, y)
-//									+ "  " + allocation_map_.get(i, j));
+									//									System.out.println(x + "," + y + "  " + i + "," + j + "  " + allocation_map_.get(x, y)
+									//									+ "  " + allocation_map_.get(i, j));
 									int comparasive_unit = allocation_map_.get(i, j) - 1;
 									if (current_unit == num_node && current_unit != comparasive_unit) {
 										//隣接ノードのうち所属の違うノード
 										white_map.set(i, j, comparasive_unit + 1);
-//										System.out.println("!");
+										//										System.out.println("!");
 
 									}
 								}
@@ -154,21 +152,67 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 			for (int x = 0; x < allocation_map_.w_; x++) {
 				for (int y = 0; y < allocation_map_.h_; y++) {
 					int current_unit = allocation_map_.get(x, y) - 1;
-					int radius = filter_size_ / 2;
-					//8近傍を見る
-					for (int j = y - radius; j <= y + radius; j++) {
-						for (int i = x - radius; i <= x + radius; i++) {
+
+					int loop_to_x;
+					int loop_to_y;
+
+					int radius;
+					if (filter_size_ % 2 == 1) {
+						radius = filter_size_ / 2;
+						loop_to_y = y + radius;
+						loop_to_x = x + radius;
+						//8近傍を見る
+						//フィルタが奇数の時
+
+						//						for (int j = y - radius; j <= y + radius; j++) {
+						//							for (int i = x - radius; i <= x + radius; i++) {
+						//								//						Todo : ijが範囲内にあることを保証する
+						//								if (i >= 0 && j >= 0 && i < allocation_map_.w_ && j < allocation_map_.h_) {
+						//									int comparasive_unit = allocation_map_.get(i, j) - 1;
+						//									if (current_unit == num_node && current_unit != comparasive_unit) {
+						//										//隣接ノードのうち所属の違うノード
+						//										map.set(i, j, comparasive_unit + 1);
+						//
+						//									}
+						//								}
+						//							}
+						//						}
+
+					} else {
+						//フィルタが偶数の時
+						radius = filter_size_ / 2 - 1;
+						loop_to_y = y + radius + 1;
+						loop_to_x = x + radius + 1;
+						//8近傍を見る
+						//フィルタが奇数の時
+						//						for (int j = y - radius; j <= y + radius + 1; j++) {
+						//							for (int i = x - radius; i <= x + radius + 1; i++) {
+						//								//						Todo : ijが範囲内にあることを保証する
+						//								if (i >= 0 && j >= 0 && i < allocation_map_.w_ && j < allocation_map_.h_) {
+						//									int comparasive_unit = allocation_map_.get(i, j) - 1;
+						//									if (current_unit == num_node && current_unit != comparasive_unit) {
+						//										//隣接ノードのうち所属の違うノード
+						//										map.set(i, j, comparasive_unit + 1);
+						//
+						//									}
+						//								}
+						//							}
+						//						}
+					}
+
+					for (int j = y - radius; j <= loop_to_y; j++) {
+						for (int i = x - radius; i <= loop_to_x; i++) {
 							//						Todo : ijが範囲内にあることを保証する
 							if (i >= 0 && j >= 0 && i < allocation_map_.w_ && j < allocation_map_.h_) {
 								int comparasive_unit = allocation_map_.get(i, j) - 1;
 								if (current_unit == num_node && current_unit != comparasive_unit) {
 									//隣接ノードのうち所属の違うノード
 									map.set(i, j, comparasive_unit + 1);
-
 								}
 							}
 						}
 					}
+
 				}
 			}
 			//チェック
@@ -193,6 +237,8 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 			}
 		}
 	}
+
+
 
 	@Override
 	public AllocationMap getOutputMap() {
