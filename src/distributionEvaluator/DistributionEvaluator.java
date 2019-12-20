@@ -1,6 +1,7 @@
 package distributionEvaluator;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import distributionGenerator.AllocationMap;
 import distributionGenerator.Hardware;
@@ -13,6 +14,8 @@ public class DistributionEvaluator {
 	int filter_size_;
 	int stride_;
 	int padding_;
+
+	Random rand_;
 
 	public boolean enable_zero_padding_ = false;
 
@@ -52,6 +55,10 @@ public class DistributionEvaluator {
 			System.out.println("unit ratio [" + (i + 1) + "] : " + totalUnits.get(i) / sum);
 		}
 
+	}
+
+	public void setRandom(Random rand) {
+		rand_ = rand;
 	}
 
 	//

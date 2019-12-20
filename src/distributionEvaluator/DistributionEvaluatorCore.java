@@ -3,6 +3,7 @@ package distributionEvaluator;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import distributionGenerator.AllocationMap;
 import distributionGenerator.Hardware;
@@ -29,11 +30,15 @@ public class DistributionEvaluatorCore {
 
 		File file = new File("./resource/test.txt");
 
+		Random rand = new Random(0);
 		AllocationMap allocation_map = new AllocationMap(file);
 		System.out.println(allocation_map);
 
+
 		IEvaluator evaluator = new ConvolutionEvaluator(allocation_map, nodes);
 //		IEvaluator evaluator = new PoolingEvaluator(allocation_map, nodes);
+		evaluator.setRandom(rand);
+
 
 		evaluator.evaluatePerformanceBallance();
 		evaluator.evaluateTranslatedDataAmount();

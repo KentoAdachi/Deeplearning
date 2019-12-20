@@ -1,5 +1,7 @@
 package distributionEvaluator;
 
+import java.util.Random;
+
 import distributionGenerator.AllocationMap;
 
 public interface IEvaluator {
@@ -13,4 +15,5 @@ public interface IEvaluator {
 	public double evaluatePerformanceBallance();
 	 public void evaluateTranslatedDataAmount();
 	public AllocationMap getOutputMap();
+	public void setRandom(Random rand);
 }

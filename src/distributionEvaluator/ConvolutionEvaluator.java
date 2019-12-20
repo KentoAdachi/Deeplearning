@@ -7,6 +7,9 @@ import distributionGenerator.Hardware;
 
 public class ConvolutionEvaluator extends DistributionEvaluator implements IEvaluator {
 
+
+
+
 	public ConvolutionEvaluator(AllocationMap map, ArrayList<Hardware> nodes) {
 		super(map, nodes);
 		// TODO 自動生成されたコンストラクター・ スタブ
@@ -56,6 +59,8 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 		for (int num_node = 0; num_node < nodes_.size(); num_node++) {
 			Hardware node = nodes_.get(num_node);
 			AllocationMap white_map = new AllocationMap(this.allocation_map_.w_, this.allocation_map_.h_);
+			white_map.setRandom(rand_);
+
 
 			//フィルタサイズが奇数か偶数かで場合分けした方がよさそう
 			//xy初期位置要チェック
@@ -148,6 +153,8 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 		for (int num_node = 0; num_node < nodes_.size(); num_node++) {
 			Hardware node = nodes_.get(num_node);
 			AllocationMap map = new AllocationMap(this.allocation_map_.w_, this.allocation_map_.h_);
+			map.setRandom(rand_);
+//			map.setRandom();
 
 			for (int x = 0; x < allocation_map_.w_; x++) {
 				for (int y = 0; y < allocation_map_.h_; y++) {
@@ -207,7 +214,13 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 								int comparasive_unit = allocation_map_.get(i, j) - 1;
 								if (current_unit == num_node && current_unit != comparasive_unit) {
 									//隣接ノードのうち所属の違うノード
-									map.set(i, j, comparasive_unit + 1);
+									try {
+										map.set(i, j, comparasive_unit + 1,true);
+									} catch (Exception e) {
+										// TODO 自動生成された catch ブロック
+										e.printStackTrace();
+									}
+//									map.set(i, j, comparasive_unit + 1);
 								}
 							}
 						}

@@ -14,7 +14,7 @@ public class AllocationMap {
 	public int h_;
 	int[][] map_;
 
-	double interval_distance_; //ノード間の距離
+	public double interval_distance_; //ノード間の距離
 	Random rand_;
 	//double prob(){} //到達率
 	//boolean isReachable(){} //到達判定
