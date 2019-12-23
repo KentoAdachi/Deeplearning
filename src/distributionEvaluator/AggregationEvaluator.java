@@ -1,26 +1,44 @@
 package distributionEvaluator;
 
+import java.util.ArrayList;
+
 import distributionGenerator.AllocationMap;
-import distributionGenerator.Unit;
+import distributionGenerator.Hardware;
 
-public class AggregationEvaluator {
+public class AggregationEvaluator extends DistributionEvaluator implements IEvaluator {
 
-	//ノード間の距離
-	double node_distance_;
-	AllocationMap allocationmap_;
-	//距離とパケットサイズから到達率の計算
+	public AggregationEvaluator(AllocationMap map, ArrayList<Hardware> nodes) {
+		super(map, nodes);
+		// TODO 自動生成されたコンストラクター・ スタブ
+	}
 
-	public double distance(Unit s, Unit d) {
+	@Override
+	public void evaluateTranslatedDataAmount() {
+		// TODO 自動生成されたメソッド・スタブ
+		this.evaluateTranslatedDataAmount_B();
+	}
 
-		//		ユークリッド距離を求める
-		double x = node_distance_ * (d.x_ - s.x_);
-		double y = node_distance_ * (d.y_ - s.y_);
-		return Math.sqrt(x * x + y * y);
+	/*作り方
+	 *	通信成功フィルタを作る
+	 *	全てのセンサノードに対して成功失敗を記録した配列を作る
+	 *
+	 * */
+	//データの重複を考慮する送受信データ量
+	public void evaluateTranslatedDataAmount_B() {
+		for (int y = 0; y < allocation_map_.h_; y++) {
+			for (int x = 0; x < allocation_map_.w_; x++) {
+				int parent = allocation_map_.get(x, y) - 1;
+				Hardware parent_h = nodes_.get(parent);
+				//未実装
+
+			}
+		}
 
 	}
 
-	public double prob(double distance, int packet_size) {
-		return 0;
+	@Override
+	public AllocationMap getOutputMap() {
+		// TODO 自動生成されたメソッド・スタブ
+		return allocation_map_;
 	}
-
 }

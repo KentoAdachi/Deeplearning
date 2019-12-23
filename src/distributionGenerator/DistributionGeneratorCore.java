@@ -14,10 +14,13 @@ public class DistributionGeneratorCore {
 
 		ArrayList<Hardware> nodes = new ArrayList<Hardware>();
 
-		nodes.add(new Hardware(100, "a"));
-		nodes.add(new Hardware(200, "b"));
-		nodes.add(new Hardware(300, "c"));
+		nodes.add(new Hardware(0,0,100, "a"));
+		nodes.add(new Hardware(9,0,200, "b"));
+		nodes.add(new Hardware(9,9,300, "c"));
+//		nodes.add(new Hardware(3,7,300, "d"));
 //		nodes.add(new Hardware(400, "d"));
+
+
 
 
 		//初期割り当て
@@ -28,11 +31,11 @@ public class DistributionGeneratorCore {
 //		alloc_init.set(27, 27, 4);
 
 		Random rand = new Random();
-		AllocationMap alloc_init = new AllocationMap(10, 10);
+		AllocationMap alloc_init = new AllocationMap(10, 10,nodes);
 		alloc_init.setRandom(rand);
-		alloc_init.set(0, 0, 1);
-		alloc_init.set(9, 0, 2);
-		alloc_init.set(9, 9, 3);
+//		alloc_init.set(0, 0, 1);
+//		alloc_init.set(9, 0, 2);
+//		alloc_init.set(9, 9, 3);
 //		alloc_init.set(0, 9, 4);
 
 		System.out.println(alloc_init);

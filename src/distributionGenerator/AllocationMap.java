@@ -25,7 +25,7 @@ public class AllocationMap {
 		h_ = h;
 		map_ = new int[w][h];
 
-		interval_distance_ = 10d;
+		interval_distance_ =1d;
 
 	}
 
@@ -38,6 +38,8 @@ public class AllocationMap {
 			Hardware node = calc_nodes.get(i);
 			this.set(node.x_, node.y_, i + 1);
 		}
+
+
 
 	}
 
@@ -113,8 +115,55 @@ public class AllocationMap {
 		map_[x][y] = rand_.nextDouble() <= connectionProb() ? i : 0;
 	}
 
+	public void set(Unit s,Unit d) throws Exception {
+		if (this.rand_ == null) {
+			throw new Exception("先にrand_を初期化してください");
+		}
+		int x = d.x_;
+		int y = d.y_;
+		int i = d.parent_;
+		double dist = distance(s, d);
+		map_[x][y] = rand_.nextDouble() <= connectionProb(dist) ? i : 0;
+	}
+	public void set(Hardware h_s,Hardware h_d, int x,int y, int i) throws Exception {
+		if (this.rand_ == null) {
+			throw new Exception("先にrand_を初期化してください");
+		}
+		double dist = distance(h_s, h_d);
+		map_[x][y] = isConnectionSucceed(dist)? i : 0;
+
+	}
+
+	public boolean isConnectionSucceed(double dist) {
+		return rand_.nextDouble() <= connectionProb(dist);
+	}
+
+	public double connectionProb(double dist) {
+
+		if(dist <= 71)return 0.999d;
+		if(dist <= 73)return 0.997d;
+		if(dist <= 74)return 0.995d;
+		if(dist <= 75)return 0.993d;
+		if(dist <= 76)return 0.985d;
+		if(dist <= 77)return 0.964d;
+		if(dist <= 78)return 0.931d;
+		if(dist <= 79)return 0.886d;
+		if(dist <= 80)return 0.807d;
+		if(dist <= 81)return 0.691d;
+		if(dist <= 82)return 0.502d;
+		if(dist <= 83)return 0.324d;
+		if(dist <= 84)return 0.139d;
+		if(dist <= 85)return 0.040d;
+		if(dist <= 86)return 0.005d;
+		return 0;
+	}
+
 	//確率は0~1スケール
 	double connectionProb() {
+		double ret = 1;
+
+
+
 		return 1;//実装予定
 	}
 
@@ -159,6 +208,12 @@ public class AllocationMap {
 		double y = interval_distance_ * (d.y_ - s.y_);
 		return Math.sqrt(x * x + y * y);
 
+	}
+
+	public double distance(Hardware s,Hardware d) {
+		double x = interval_distance_ * (d.x_ - s.x_);
+		double y = interval_distance_ * (d.y_ - s.y_);
+		return Math.sqrt(x * x + y * y);
 	}
 
 }

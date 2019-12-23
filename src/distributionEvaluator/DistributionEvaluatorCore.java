@@ -17,10 +17,13 @@ public class DistributionEvaluatorCore {
 
 		ArrayList<Hardware> nodes = new ArrayList<Hardware>();
 
-		nodes.add(new Hardware(100, "a"));
-		nodes.add(new Hardware(200, "b"));
-		nodes.add(new Hardware(300, "c"));
+//		nodes.add(new Hardware(100, "a"));
+//		nodes.add(new Hardware(200, "b"));
+//		nodes.add(new Hardware(300, "c"));
 //		nodes.add(new Hardware(400, "d"));
+		nodes.add(new Hardware(0,0,100, "a"));
+		nodes.add(new Hardware(9,0,200, "b"));
+		nodes.add(new Hardware(9,9,300, "c"));
 
 //		for (Hardware hardware : nodes) {
 //			System.out.println(hardware);
