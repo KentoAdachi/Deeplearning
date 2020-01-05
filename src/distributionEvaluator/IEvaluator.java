@@ -13,7 +13,7 @@ public interface IEvaluator {
 
 //	評価
 	public double evaluatePerformanceBallance();
-	 public void evaluateTranslatedDataAmount();
+	 public float evaluateTranslatedDataAmount();
 	public AllocationMap getOutputMap();
 	public void setRandom(Random rand);
 }

@@ -21,9 +21,11 @@ public class PoolingEvaluator extends DistributionEvaluator implements IEvaluato
 	}
 
 	@Override
-	public void evaluateTranslatedDataAmount() {
+	public float evaluateTranslatedDataAmount() {
 		// TODO 自動生成されたメソッド・スタブ
 		evaluateTranslatedDataAmount_C();
+
+		return 0;
 	}
 
 	public void evaluateTranslatedDataAmount_C() {
@@ -109,6 +111,126 @@ public class PoolingEvaluator extends DistributionEvaluator implements IEvaluato
 				System.out.println("node " + (i + 1) + " count :" + cnt_node.get(i));
 			}
 		}
+	}
+
+	//現状畳み込みからコピーしただけ
+	public float evaluateTranslatedDataAmount_B() {
+		float ret = 0;
+		for (int num_node = 0; num_node < nodes_.size(); num_node++) {
+			Hardware h_s = nodes_.get(num_node);
+			AllocationMap map = new AllocationMap(this.allocation_map_.w_, this.allocation_map_.h_);
+			map.setRandom(rand_);
+//			map.setRandom();
+
+			for (int x = 0; x < allocation_map_.w_; x++) {
+				for (int y = 0; y < allocation_map_.h_; y++) {
+					int current_unit = allocation_map_.get(x, y) - 1;
+
+
+//					Unit s = new Unit(x, y, current_unit+1);
+//					Unit u_s = new Unit(node.x_,node.y_,num_node+1);
+
+					int loop_to_x;
+					int loop_to_y;
+
+					int radius;
+					if (filter_size_ % 2 == 1) {
+						radius = filter_size_ / 2;
+						loop_to_y = y + radius;
+						loop_to_x = x + radius;
+						//8近傍を見る
+						//フィルタが奇数の時
+
+						//						for (int j = y - radius; j <= y + radius; j++) {
+						//							for (int i = x - radius; i <= x + radius; i++) {
+						//								//						Todo : ijが範囲内にあることを保証する
+						//								if (i >= 0 && j >= 0 && i < allocation_map_.w_ && j < allocation_map_.h_) {
+						//									int comparasive_unit = allocation_map_.get(i, j) - 1;
+						//									if (current_unit == num_node && current_unit != comparasive_unit) {
+						//										//隣接ノードのうち所属の違うノード
+						//										map.set(i, j, comparasive_unit + 1);
+						//
+						//									}
+						//								}
+						//							}
+						//						}
+
+					} else {
+						//フィルタが偶数の時
+						radius = filter_size_ / 2 - 1;
+						loop_to_y = y + radius + 1;
+						loop_to_x = x + radius + 1;
+						//8近傍を見る
+						//フィルタが奇数の時
+						//						for (int j = y - radius; j <= y + radius + 1; j++) {
+						//							for (int i = x - radius; i <= x + radius + 1; i++) {
+						//								//						Todo : ijが範囲内にあることを保証する
+						//								if (i >= 0 && j >= 0 && i < allocation_map_.w_ && j < allocation_map_.h_) {
+						//									int comparasive_unit = allocation_map_.get(i, j) - 1;
+						//									if (current_unit == num_node && current_unit != comparasive_unit) {
+						//										//隣接ノードのうち所属の違うノード
+						//										map.set(i, j, comparasive_unit + 1);
+						//
+						//									}
+						//								}
+						//							}
+						//						}
+					}
+
+					for (int j = y - radius; j <= loop_to_y; j++) {
+						for (int i = x - radius; i <= loop_to_x; i++) {
+
+
+							//						Todo : ijが範囲内にあることを保証する
+							if (i >= 0 && j >= 0 && i < allocation_map_.w_ && j < allocation_map_.h_) {
+								int comparasive_unit = allocation_map_.get(i, j) - 1;
+								Hardware h_d = nodes_.get(comparasive_unit);
+//								Unit u_d = new Unit(h_d.x_, h_d.y_, comparasive_unit+1);
+
+//								Unit d = new Unit(i, j, comparasive_unit+1);
+								if (current_unit == num_node && current_unit != comparasive_unit) {
+									//隣接ノードのうち所属の違うノード
+									try {
+//										map.set(s, d);
+										map.set(h_s, h_d, i, j, comparasive_unit+1);
+//										map.set(i, j, comparasive_unit + 1,true);
+									} catch (Exception e) {
+										// TODO 自動生成された catch ブロック
+										e.printStackTrace();
+									}
+//									map.set(i, j, comparasive_unit + 1);
+								}
+							}
+						}
+					}
+
+				}
+			}
+
+
+			//チェック
+			System.out.println("node : " + (num_node + 1));
+			System.out.println(map);
+			ArrayList<Integer> cnt_node = new ArrayList<Integer>();
+			for (int i = 0; i < nodes_.size(); i++) {
+				cnt_node.add(0);
+			}
+			//
+			for (int x = 0; x < map.w_; x++) {
+				for (int y = 0; y < map.h_; y++) {
+
+					int current_unit = map.get(x, y);
+					if (current_unit != 0) {
+						cnt_node.set(current_unit - 1, cnt_node.get(current_unit - 1) + 1);
+					}
+				}
+			}
+			for (int i = 0; i < cnt_node.size(); i++) {
+				System.out.println("node " + (i + 1) + " count :" + cnt_node.get(i));
+				ret += cnt_node.get(i);
+			}
+		}
+		return ret;
 	}
 
 	public AllocationMap getOutputMap() {

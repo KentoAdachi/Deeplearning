@@ -25,7 +25,7 @@ public class AllocationMap {
 		h_ = h;
 		map_ = new int[w][h];
 
-		interval_distance_ =1d;
+		interval_distance_ =10d;
 
 	}
 
@@ -130,7 +130,7 @@ public class AllocationMap {
 			throw new Exception("先にrand_を初期化してください");
 		}
 		double dist = distance(h_s, h_d);
-		map_[x][y] = isConnectionSucceed(dist)? i : 0;
+		map_[x][y] = isConnectionSucceed(dist)? i : i;
 
 	}
 
@@ -139,6 +139,7 @@ public class AllocationMap {
 	}
 
 	public double connectionProb(double dist) {
+
 
 		if(dist <= 71)return 0.999d;
 		if(dist <= 73)return 0.997d;

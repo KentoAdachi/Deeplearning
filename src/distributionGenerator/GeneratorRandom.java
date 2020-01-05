@@ -19,9 +19,20 @@ public class GeneratorRandom extends DistributionGenerator implements IGenerator
 			Hardware node = nodes_.get(i);
 			allocationMap_.set(node.x_,node.y_, i+1);
 		}
-
-
 	}
+
+	public GeneratorRandom(ArrayList<Hardware> nodes, AllocationMap map) {
+		nodes_ = nodes;
+		max_units_ = map.w_ * map.h_;
+		allocationMap_ = map;
+
+		for (int i = 0; i < nodes_.size(); i++) {
+			Hardware node = nodes_.get(i);
+			allocationMap_.set(node.x_,node.y_, i+1);
+		}
+	}
+
+
 
 	public void generate() {
 

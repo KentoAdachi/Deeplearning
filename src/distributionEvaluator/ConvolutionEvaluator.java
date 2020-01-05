@@ -16,9 +16,9 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 	}
 
 	@Override
-	public void evaluateTranslatedDataAmount() {
+	public float evaluateTranslatedDataAmount() {
 		// TODO 自動生成されたメソッド・スタブ
-		this.evaluateTranslatedDataAmount_B();
+		return this.evaluateTranslatedDataAmount_B();
 	}
 
 	//送受信データ量
@@ -149,7 +149,8 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 	 *
 	 * */
 	//データの重複を考慮する送受信データ量
-	public void evaluateTranslatedDataAmount_B() {
+	public float evaluateTranslatedDataAmount_B() {
+		float ret = 0;
 		for (int num_node = 0; num_node < nodes_.size(); num_node++) {
 			Hardware h_s = nodes_.get(num_node);
 			AllocationMap map = new AllocationMap(this.allocation_map_.w_, this.allocation_map_.h_);
@@ -240,6 +241,8 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 
 				}
 			}
+
+
 			//チェック
 			System.out.println("node : " + (num_node + 1));
 			System.out.println(map);
@@ -259,8 +262,10 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 			}
 			for (int i = 0; i < cnt_node.size(); i++) {
 				System.out.println("node " + (i + 1) + " count :" + cnt_node.get(i));
+				ret += cnt_node.get(i);
 			}
 		}
+		return ret;
 	}
 
 
