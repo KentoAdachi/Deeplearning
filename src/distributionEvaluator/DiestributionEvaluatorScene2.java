@@ -56,8 +56,6 @@ public class DiestributionEvaluatorScene2 {
 
 		IGenerator generator;
 
-
-
 		if (alloc_type.equals("rnd")) {
 			generator = new GeneratorRandom(nodes_calc, 10, 10);
 		}
@@ -79,19 +77,22 @@ public class DiestributionEvaluatorScene2 {
 
 		//		System.out.println("Program completed");
 
-		File file = new File("./resource/test.txt");
-
-		try {
-			generator.getAllocationMap().write(file);
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-		System.out.println("filepath : " + file.getPath());
+//		File file = new File("./resource/test.txt");
+//
+//		try {
+//			generator.getAllocationMap().write(file);
+//		} catch (IOException ex) {
+//			ex.printStackTrace();
+//		}
+//		System.out.println("filepath : " + file.getPath());
 
 		map = generator.getAllocationMap();
 
 		//if文
-		ConvolutionEvaluator evaluator = new ConvolutionEvaluator(map, nodes_calc);
+//		ConvolutionEvaluator evaluator = new ConvolutionEvaluator(map, nodes_calc);
+		IEvaluator evaluator = new ConvolutionEvaluator(map, nodes_calc);
+//		IEvaluator evaluator = new PoolingEvaluator(map, nodes_calc);
+
 		evaluator.setRandom(rand);
 
 		double res_p = evaluator.evaluateTranslatedDataAmount();
@@ -100,7 +101,7 @@ public class DiestributionEvaluatorScene2 {
 		System.out.println("filepath : " + output.getPath());
 		FileWriter fw = new FileWriter(output, true);
 
-		fw.write("割り当て方法 : ,"+alloc_type+" ,計算ノードの数 :," + nodes_calc.size() + ",通信量 : ," + res_p + "\n");
+		fw.write("割り当て方法 : ,"+alloc_type+",計算ノードの数 :," + nodes_calc.size() + ",通信量 : ," + res_p + "\n");
 
 		fw.close();
 	}

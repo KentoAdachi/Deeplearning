@@ -23,6 +23,7 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 
 	//送受信データ量
 	//データの重複を考慮していない
+	@Deprecated
 	public void evaluateTranslatedDataAmount_A() {
 
 		ArrayList<Integer> datas = new ArrayList<>();
@@ -55,6 +56,7 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 
 	}
 
+	@Deprecated
 	public void evaluateTranslatedDataAmount_C() {
 		for (int num_node = 0; num_node < nodes_.size(); num_node++) {
 			Hardware node = nodes_.get(num_node);
@@ -150,6 +152,7 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 	 * */
 	//データの重複を考慮する送受信データ量
 	public float evaluateTranslatedDataAmount_B() {
+		int count_translate = 0;
 		float ret = 0;
 		for (int num_node = 0; num_node < nodes_.size(); num_node++) {
 			Hardware h_s = nodes_.get(num_node);
@@ -227,7 +230,7 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 									//隣接ノードのうち所属の違うノード
 									try {
 //										map.set(s, d);
-										map.set(h_s, h_d, i, j, comparasive_unit+1);
+										count_translate = map.set(h_s, h_d, i, j, comparasive_unit+1)?count_translate+1:count_translate;
 //										map.set(i, j, comparasive_unit + 1,true);
 									} catch (Exception e) {
 										// TODO 自動生成された catch ブロック

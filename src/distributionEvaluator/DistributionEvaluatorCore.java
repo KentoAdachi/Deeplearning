@@ -44,7 +44,7 @@ public class DistributionEvaluatorCore {
 
 
 		evaluator.evaluatePerformanceBallance();
-		evaluator.evaluateTranslatedDataAmount();
+		System.out.println("通信量 : "+evaluator.evaluateTranslatedDataAmount());
 
 		evaluator.getOutputMap();
 

@@ -13,9 +13,10 @@ public class AggregationEvaluator extends DistributionEvaluator implements IEval
 	}
 
 	@Override
-	public void evaluateTranslatedDataAmount() {
+	public float evaluateTranslatedDataAmount() {
 		// TODO 自動生成されたメソッド・スタブ
 		this.evaluateTranslatedDataAmount_B();
+		return 0;
 	}
 
 	/*作り方
