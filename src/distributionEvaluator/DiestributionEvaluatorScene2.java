@@ -19,7 +19,7 @@ public class DiestributionEvaluatorScene2 {
 	static long SEED = 6;
 	static Random rand = new Random(SEED);
 
-	static String OUTPUT_FILE_PATH = "./resource/translatedDataAmount.csv";
+	static String OUTPUT_FILE_PATH = "./resource/translatedDataAmount2.csv";
 
 	static void execute(int batch, int step, int from, int to) throws IOException {
 
@@ -90,8 +90,8 @@ public class DiestributionEvaluatorScene2 {
 
 		//if文
 //		ConvolutionEvaluator evaluator = new ConvolutionEvaluator(map, nodes_calc);
-		IEvaluator evaluator = new ConvolutionEvaluator(map, nodes_calc);
-//		IEvaluator evaluator = new PoolingEvaluator(map, nodes_calc);
+//		IEvaluator evaluator = new ConvolutionEvaluator(map, nodes_calc);
+		IEvaluator evaluator = new PoolingEvaluator(map, nodes_calc);
 
 		evaluator.setRandom(rand);
 

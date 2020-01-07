@@ -20,9 +20,6 @@ public class DistributionGeneratorCore {
 //		nodes.add(new Hardware(3,7,300, "d"));
 //		nodes.add(new Hardware(400, "d"));
 
-
-
-
 		//初期割り当て
 //		AllocationMap alloc_init = new AllocationMap(28, 28);
 //		alloc_init.set(0, 18, 1);

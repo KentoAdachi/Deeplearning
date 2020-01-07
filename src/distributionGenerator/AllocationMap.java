@@ -25,7 +25,7 @@ public class AllocationMap {
 		map_ = new int[w][h];
 
 		//メートル単位
-		interval_distance_ = 1d;
+		interval_distance_ = 10d;
 
 	}
 
@@ -135,7 +135,7 @@ public class AllocationMap {
 		boolean ret = false;
 		if (isAllocable(x, y)) {
 			ret = isConnectionSucceed(dist);
-			map_[x][y] = ret ? i : 0;
+			map_[x][y] = ret ? i : i;
 		}
 		return ret;
 
