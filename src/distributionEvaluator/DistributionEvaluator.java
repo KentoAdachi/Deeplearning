@@ -59,6 +59,7 @@ public class DistributionEvaluator {
 
 	public void setRandom(Random rand) {
 		rand_ = rand;
+		this.allocation_map_.setRandom(rand_);
 	}
 
 	//

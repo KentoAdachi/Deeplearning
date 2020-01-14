@@ -141,11 +141,14 @@ public class AllocationMap {
 
 	}
 
-	public boolean isConnectionSucceed(double dist) {
+	public boolean isConnectionSucceed(double dist) throws Exception {
+		if (this.rand_ == null) {
+			throw new Exception("先にrand_を初期化してください");
+		}
 		return rand_.nextDouble() <= connectionProb(dist);
 	}
 
-	public double connectionProb(double dist) {
+	public static double connectionProb(double dist) {
 
 		if (dist <= 71)
 			return 0.999d;
