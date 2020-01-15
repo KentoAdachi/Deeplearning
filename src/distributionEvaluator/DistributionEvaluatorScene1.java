@@ -44,7 +44,7 @@ public class DistributionEvaluatorScene1 {
 
 		ArrayList<Hardware> nodes_calc = new ArrayList<Hardware>(nodes.subList(0, num_nodes));
 
-		AllocationMap map = new AllocationMap(10, 10, nodes_calc);
+		AllocationMap map = new AllocationMap(10, 10, nodes_calc,10);
 
 		System.out.println(map);
 

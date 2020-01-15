@@ -18,7 +18,7 @@ public class DistributionEvaluatorScene3 {
 	static long SEED = 0;
 	static Random rand = new Random(SEED);
 
-	static String OUTPUT_FILE_PATH = "./resource/translatedDataAmount2.csv";
+	static String OUTPUT_FILE_PATH = "./resource/ConvResult.csv";
 
 	static void execute(int batch, int step, int from, int to) throws Exception {
 
@@ -37,19 +37,26 @@ public class DistributionEvaluatorScene3 {
 			}
 
 			for (int num_nodes = from; num_nodes <= to; num_nodes += step) {
-				scene(num_nodes, nodes, "loc");
-				scene(num_nodes, nodes, "rnd");
-				scene(num_nodes, nodes, "sim");
+				//				scene(num_nodes, nodes, "loc",100);
+				scene(num_nodes, nodes, "rnd", 100);
+				//				scene(num_nodes, nodes, "sim",100);
+				//				scene(num_nodes, nodes, "loc",10);
+				scene(num_nodes, nodes, "rnd", 10);
+				//				scene(num_nodes, nodes, "sim",10);
+				//				scene(num_nodes, nodes, "loc",1);
+				scene(num_nodes, nodes, "rnd", 1);
+				//				scene(num_nodes, nodes, "sim",1);
 
 			}
 		}
 	}
 
-	static void scene(int num_nodes, ArrayList<Hardware> nodes, String alloc_type) throws Exception {
+	static void scene(int num_nodes, ArrayList<Hardware> nodes, String alloc_type, float node_interval)
+			throws Exception {
 
 		ArrayList<Hardware> nodes_calc = new ArrayList<Hardware>(nodes.subList(0, num_nodes));
 
-		AllocationMap map = new AllocationMap(10, 10, nodes_calc);
+		AllocationMap map = new AllocationMap(10, 10, nodes_calc, node_interval);
 
 		System.out.println(map);
 
@@ -84,6 +91,7 @@ public class DistributionEvaluatorScene3 {
 		//		System.out.println("filepath : " + file.getPath());
 
 		map = generator.getAllocationMap();
+		map.interval_distance_ = node_interval;
 
 		//if文
 		ConvolutionEvaluator evaluator = new ConvolutionEvaluator(map, nodes_calc);
@@ -98,23 +106,24 @@ public class DistributionEvaluatorScene3 {
 				input[x][y] = 1;
 			}
 		}
-		float[][] filter = {{1,2,3},{4,5,6},{7,8,9}};
+		float[][] filter = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
 		//		double res_p = evaluator.evaluateTranslatedDataAmount();
 
-		float [][]result =  evaluator.forward(input, filter);
-
-		for (int x = 0; x < input.length; x++) {
-			for (int y = 0; y < input.length; y++) {
-				System.out.printf("%5.0f,",result[x][y]);
-			}
-			System.out.println();
-		}
+		float[][] result = evaluator.forward(input, filter);
 
 		File output = new File(OUTPUT_FILE_PATH);
 		System.out.println("filepath : " + output.getPath());
 		FileWriter fw = new FileWriter(output, true);
 
-		//		fw.write("割り当て方法 : ,"+alloc_type+",計算ノードの数 :," + nodes_calc.size() + ",通信量 : ," + res_p + "\n");
+		fw.write("割り当て方法 : ," + alloc_type + ",計算ノードの数 :," + nodes_calc.size() + ",ノード間距離 :," + node_interval + "\n");
+		for (int x = 0; x < input.length; x++) {
+			for (int y = 0; y < input.length; y++) {
+				System.out.printf("%5.0f,", result[x][y]);
+				fw.write(result[x][y] + ",");
+			}
+			System.out.println();
+			fw.write("\n");
+		}
 
 		fw.close();
 	}
@@ -128,7 +137,7 @@ public class DistributionEvaluatorScene3 {
 		fw.close();
 
 		System.out.println("start");
-		execute(100, 1, 6, 6);
+		execute(1, 1, 6, 6);
 		return;
 	}
 

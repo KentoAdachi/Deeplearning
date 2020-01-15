@@ -18,6 +18,7 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 		return this.evaluateTranslatedDataAmount_B();
 	}
 
+	//畳み込み層の処理ではあるのだが，逐次通信的な計算方法なので修正の必要があるかも
 	public float[][] forward(float[][] input, float[][] filter) throws Exception {
 		float[][] ret = new float[input.length][input.length];
 		int count_translate = 0;

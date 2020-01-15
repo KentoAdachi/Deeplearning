@@ -14,7 +14,7 @@ public class AllocationMap {
 	public int h_;
 	int[][] map_;
 
-	public double interval_distance_; //ノード間の距離
+	public float interval_distance_; //ノード間の距離
 	Random rand_;
 	//double prob(){} //到達率
 	//boolean isReachable(){} //到達判定
@@ -25,15 +25,14 @@ public class AllocationMap {
 		map_ = new int[w][h];
 
 		//メートル単位
-		interval_distance_ = 10d;
+		interval_distance_ = 10;
 
 	}
 
 	//ノードの座標から割り当てる
-	public AllocationMap(int w, int h, ArrayList<Hardware> calc_nodes) {
-
+	public AllocationMap(int w, int h, ArrayList<Hardware> calc_nodes,float nodes_interval) {
 		this(w, h);
-
+		this.interval_distance_ = nodes_interval;
 		for (int i = 0; i < calc_nodes.size(); i++) {
 			Hardware node = calc_nodes.get(i);
 			this.set(node.x_, node.y_, i + 1);
