@@ -18,6 +18,147 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 		return this.evaluateTranslatedDataAmount_B();
 	}
 
+	//改善
+	public float[][] forward_B(float[][] input, float[][] filter) throws Exception {
+		int count_translate = 0;
+		float ret = 0;
+		for (int num_node = 0; num_node < nodes_.size(); num_node++) {
+			Hardware h_s = nodes_.get(num_node);
+			AllocationMap white_map = new AllocationMap(this.allocation_map_.w_, this.allocation_map_.h_);
+			white_map.setRandom(rand_);
+			//			map.setRandom();
+
+			for (int x = 0; x < allocation_map_.w_; x++) {
+				for (int y = 0; y < allocation_map_.h_; y++) {
+					int current_unit = allocation_map_.get(x, y) - 1;
+
+					//					Unit s = new Unit(x, y, current_unit+1);
+					//					Unit u_s = new Unit(node.x_,node.y_,num_node+1);
+
+					int loop_to_x;
+					int loop_to_y;
+
+					int radius;
+					if (filter_size_ % 2 == 1) {
+						radius = filter_size_ / 2;
+						loop_to_y = y + radius;
+						loop_to_x = x + radius;
+
+					} else {
+						//フィルタが偶数の時
+						radius = filter_size_ / 2 - 1;
+						loop_to_y = y + radius + 1;
+						loop_to_x = x + radius + 1;
+					}
+
+					for (int j = y - radius; j <= loop_to_y; j++) {
+						for (int i = x - radius; i <= loop_to_x; i++) {
+
+							//						Todo : ijが範囲内にあることを保証する
+							if (i >= 0 && j >= 0 && i < allocation_map_.w_ && j < allocation_map_.h_) {
+								int comparasive_unit = allocation_map_.get(i, j) - 1;
+								Hardware h_d = nodes_.get(comparasive_unit);
+								//								Unit u_d = new Unit(h_d.x_, h_d.y_, comparasive_unit+1);
+								//								Unit d = new Unit(i, j, comparasive_unit+1);
+								if (current_unit == num_node && current_unit != comparasive_unit) {
+									//隣接ノードのうち所属の違うノード
+									try {
+										//										map.set(s, d);
+										count_translate = white_map.set(h_s, h_d, i, j, comparasive_unit + 1)
+												? count_translate + 1
+												: count_translate;
+										//										map.set(i, j, comparasive_unit + 1,true);
+									} catch (Exception e) {
+										// TODO 自動生成された catch ブロック
+										e.printStackTrace();
+									}
+									//									map.set(i, j, comparasive_unit + 1);
+								}
+							}
+						}
+					}
+
+				}
+			}
+
+			for (int x = 0; x < allocation_map_.w_; x++) {
+				for (int y = 0; y < allocation_map_.h_; y++) {
+					int current_unit = allocation_map_.get(x, y) - 1;
+
+					//					Unit s = new Unit(x, y, current_unit+1);
+					//					Unit u_s = new Unit(node.x_,node.y_,num_node+1);
+
+					int loop_to_x;
+					int loop_to_y;
+
+					int radius;
+					if (filter_size_ % 2 == 1) {
+						radius = filter_size_ / 2;
+						loop_to_y = y + radius;
+						loop_to_x = x + radius;
+
+					} else {
+						//フィルタが偶数の時
+						radius = filter_size_ / 2 - 1;
+						loop_to_y = y + radius + 1;
+						loop_to_x = x + radius + 1;
+					}
+					for (int j = y - radius; j <= loop_to_y; j++) {
+						for (int i = x - radius; i <= loop_to_x; i++) {
+
+							//						Todo : ijが範囲内にあることを保証する
+							if (i >= 0 && j >= 0 && i < allocation_map_.w_ && j < allocation_map_.h_) {
+								int comparasive_unit = allocation_map_.get(i, j) - 1;
+								Hardware h_d = nodes_.get(comparasive_unit);
+								//								Unit u_d = new Unit(h_d.x_, h_d.y_, comparasive_unit+1);
+								//								Unit d = new Unit(i, j, comparasive_unit+1);
+								if (current_unit == num_node && current_unit != comparasive_unit) {
+									//隣接ノードのうち所属の違うノード
+									try {
+										//										map.set(s, d);
+										count_translate = white_map.set(h_s, h_d, i, j, comparasive_unit + 1)
+												? count_translate + 1
+												: count_translate;
+										//										map.set(i, j, comparasive_unit + 1,true);
+									} catch (Exception e) {
+										// TODO 自動生成された catch ブロック
+										e.printStackTrace();
+									}
+									//									map.set(i, j, comparasive_unit + 1);
+								}
+							}
+						}
+					}
+				}
+
+			}
+
+
+			//チェック
+			System.out.println("node : " + (num_node + 1));
+			System.out.println(white_map);
+			ArrayList<Integer> cnt_node = new ArrayList<Integer>();
+			for (int i = 0; i < nodes_.size(); i++) {
+				cnt_node.add(0);
+			}
+			//
+			for (int x = 0; x < white_map.w_; x++) {
+				for (int y = 0; y < white_map.h_; y++) {
+
+					int current_unit = white_map.get(x, y);
+					if (current_unit != 0) {
+						cnt_node.set(current_unit - 1, cnt_node.get(current_unit - 1) + 1);
+					}
+				}
+			}
+			for (int i = 0; i < cnt_node.size(); i++) {
+				System.out.println("node " + (i + 1) + " count :" + cnt_node.get(i));
+				ret += cnt_node.get(i);
+			}
+		}
+		return null;
+	}
+
 	//畳み込み層の処理ではあるのだが，逐次通信的な計算方法なので修正の必要があるかも
 	public float[][] forward(float[][] input, float[][] filter) throws Exception {
 		float[][] ret = new float[input.length][input.length];
@@ -65,7 +206,7 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 							//							if (current_unit == comparasive_unit) {
 							//								sum += input[i][j] * filter[i_f][j_f];
 							//							} else {
-//							System.out.println(allocation_map_.isConnectionSucceed(allocation_map_.distance(h_s, h_d)));
+							//							System.out.println(allocation_map_.isConnectionSucceed(allocation_map_.distance(h_s, h_d)));
 							if (allocation_map_.isConnectionSucceed(allocation_map_.distance(h_s, h_d))) {
 								sum += input[i][j] * filter[i_f][j_f];
 							} else {
