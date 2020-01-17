@@ -134,7 +134,7 @@ public class AllocationMap {
 		boolean ret = false;
 		if (isAllocable(x, y)) {
 			ret = isConnectionSucceed(dist);
-			map_[x][y] = ret ? i : i;
+			map_[x][y] = ret ? i : 0;
 		}
 		return ret;
 

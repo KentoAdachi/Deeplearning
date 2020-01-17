@@ -37,14 +37,14 @@ public class DistributionEvaluatorScene3 {
 			}
 
 			for (int num_nodes = from; num_nodes <= to; num_nodes += step) {
-				//				scene(num_nodes, nodes, "loc",100);
-				scene(num_nodes, nodes, "rnd", 100);
-				//				scene(num_nodes, nodes, "sim",100);
-				//				scene(num_nodes, nodes, "loc",10);
-				scene(num_nodes, nodes, "rnd", 10);
-				//				scene(num_nodes, nodes, "sim",10);
-				//				scene(num_nodes, nodes, "loc",1);
-				scene(num_nodes, nodes, "rnd", 1);
+//								scene(num_nodes, nodes, "loc",100);
+//				scene(num_nodes, nodes, "rnd", 100);
+//								scene(num_nodes, nodes, "sim",100);
+//								scene(num_nodes, nodes, "loc",10);
+//				scene(num_nodes, nodes, "rnd", 10);
+//								scene(num_nodes, nodes, "sim",10);
+//								scene(num_nodes, nodes, "loc",1);
+//				scene(num_nodes, nodes, "rnd", 1);
 				//				scene(num_nodes, nodes, "sim",1);
 
 			}
@@ -109,7 +109,7 @@ public class DistributionEvaluatorScene3 {
 		float[][] filter = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
 		//		double res_p = evaluator.evaluateTranslatedDataAmount();
 
-		float[][] result = evaluator.forward(input, filter);
+		float[][] result = evaluator.forward_B(input, filter);
 
 		File output = new File(OUTPUT_FILE_PATH);
 		System.out.println("filepath : " + output.getPath());

@@ -39,7 +39,7 @@ public class AggregationEvaluator extends DistributionEvaluator implements IEval
 	}
 
 	//各ノードのからデータを集約する場合の評価を行う．
-	public float[][] forward(float[][] input, float[][] filter) throws Exception {
+	public float[][] forward(float[][] input) throws Exception {
 		float[][] ret = new float[input.length][input.length];
 		int count_translate = 0;
 		//		for (int num_node = 0; num_node < nodes_.size(); num_node++) {
