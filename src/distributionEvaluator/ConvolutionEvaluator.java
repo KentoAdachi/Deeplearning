@@ -61,8 +61,8 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 								Hardware h_d = nodes_.get(comparasive_unit);
 								//								Unit u_d = new Unit(h_d.x_, h_d.y_, comparasive_unit+1);
 								//								Unit d = new Unit(i, j, comparasive_unit+1);
-								if(current_unit == num_node && current_unit == comparasive_unit) {
-									white_map.set(h_s,h_d,i,j,current_unit+1);
+								if (current_unit == num_node && current_unit == comparasive_unit) {
+									white_map.set(h_s, h_d, i, j, current_unit + 1);
 								}
 								if (current_unit == num_node && current_unit != comparasive_unit) {
 									//隣接ノードのうち所属の違うノード
@@ -85,26 +85,77 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 			}
 
 			//チェック
-						System.out.println("node : " + (num_node + 1));
-						System.out.println(white_map);
-						ArrayList<Integer> cnt_node = new ArrayList<Integer>();
-						for (int i = 0; i < nodes_.size(); i++) {
-							cnt_node.add(0);
-						}
-						//
-						for (int x = 0; x < white_map.w_; x++) {
-							for (int y = 0; y < white_map.h_; y++) {
+			System.out.println("node : " + (num_node + 1));
+			System.out.println(white_map);
+			ArrayList<Integer> cnt_node = new ArrayList<Integer>();
+			for (int i = 0; i < nodes_.size(); i++) {
+				cnt_node.add(0);
+			}
+			//
+			for (int x = 0; x < white_map.w_; x++) {
+				for (int y = 0; y < white_map.h_; y++) {
 
-								int current_unit = white_map.get(x, y);
-								if (current_unit != 0) {
-									cnt_node.set(current_unit - 1, cnt_node.get(current_unit - 1) + 1);
-								}
-							}
-						}
-						for (int i = 0; i < cnt_node.size(); i++) {
-							System.out.println("node " + (i + 1) + " count :" + cnt_node.get(i));
-//							ret += cnt_node.get(i);
-						}
+					int current_unit = white_map.get(x, y);
+					if (current_unit != 0) {
+						cnt_node.set(current_unit - 1, cnt_node.get(current_unit - 1) + 1);
+					}
+				}
+			}
+			for (int i = 0; i < cnt_node.size(); i++) {
+				System.out.println("node " + (i + 1) + " count :" + cnt_node.get(i));
+				//							ret += cnt_node.get(i);
+			}
+
+			//補間用の配列をコピー
+			float[][] input2;
+			input2 = new float[input.length][];
+			for (int i = 0; i < input2.length; i++) {
+				input2[i] = new float[input[i].length];
+				System.arraycopy(input[i], 0, input2[i], 0, input[i].length);
+			}
+//チェック
+
+//			for (int i = 0; i < input2.length; i++) {
+//				for (int j = 0; j < input2.length; j++) {
+//					System.out.print(input2[i][j]+",");
+//				}
+//				System.out.println();
+//			}
+
+
+			//xy全てに対して
+			//whitemapの白要素の補完
+//			for (int x = 0; x < allocation_map_.w_; x++) {
+//				for (int y = 0; y < allocation_map_.h_; y++) {
+//					//					int current_unit = allocation_map_.get(x, y) - 1;
+//					int counter = 0;
+//					float sum = 0;
+//					if (white_map.get(x, y) == 0) {
+//						for (int j = y - 1; j <= y + 1; j++) {
+//							for (int i = x - 1; i <= x + 1; i++) {
+//								if (i >= 0 && j >= 0 && i < allocation_map_.w_ && j < allocation_map_.h_) {
+//									if (white_map.get(i, j) != 0) {
+//										counter++;
+//										//平均を出す
+//										sum += input2[i][j];
+//									}
+//								}
+//							}
+//						}
+//						if(counter != 0) {
+//						input2[x][y] = sum / counter;
+//						white_map.set(x, y, 9);
+//						}
+//					}
+//				}
+//			}
+//
+//			for (int i = 0; i < input2.length; i++) {
+//				for (int j = 0; j < input2.length; j++) {
+//					System.out.print(input2[i][j]+",");
+//				}
+//				System.out.println();
+//			}
 
 			for (int x = 0; x < allocation_map_.w_; x++) {
 				for (int y = 0; y < allocation_map_.h_; y++) {
@@ -137,31 +188,28 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 								Hardware h_d = nodes_.get(comparasive_unit);
 								//								Unit u_d = new Unit(h_d.x_, h_d.y_, comparasive_unit+1);
 								//								Unit d = new Unit(i, j, comparasive_unit+1);
-//								if (current_unit == comparasive_unit) {
-									if(white_map.get(i, j) != 0){
+								//								if (current_unit == comparasive_unit) {
+								if (white_map.get(i, j) != 0) {
 									//								sum += input[i][j] * filter[i_f][j_f];
 									//							System.out.println(allocation_map_.isConnectionSucceed(allocation_map_.distance(h_s, h_d)));
-									if (allocation_map_.isConnectionSucceed(allocation_map_.distance(h_s, h_d))) {
-										sum += input[i][j] * filter[i_f][j_f];
-									} else {
-										//TODO 線形補間を行う
-										//										sum +=
-										//										allocation_map_.get(i+1, j);
-										//										float right = input[i+1][j];
-										//										float left = input[i-1][j];
-									}
+									//									if (allocation_map_.isConnectionSucceed(allocation_map_.distance(h_s, h_d))) {
+									sum += input2[i][j] * filter[i_f][j_f];
+									//									} else {
+									//TODO 線形補間を行う
+
 								}
 							}
 							i_f++;
 						}
 						j_f++;
 					}
-					if(current_unit == num_node)
-					ret[x][y] = sum;
+					if (current_unit == num_node)
+						ret[x][y] = sum;
 				}
 			}
 		}
 		return ret;
+
 	}
 
 	//畳み込み層の処理ではあるのだが，逐次通信的な計算方法なので修正の必要があるかも

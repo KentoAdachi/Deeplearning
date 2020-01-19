@@ -37,7 +37,7 @@ public class DistributionEvaluatorScene3 {
 			}
 
 			for (int num_nodes = from; num_nodes <= to; num_nodes += step) {
-//								scene(num_nodes, nodes, "loc",100);
+								scene(num_nodes, nodes, "loc",100);
 //				scene(num_nodes, nodes, "rnd", 100);
 //								scene(num_nodes, nodes, "sim",100);
 //								scene(num_nodes, nodes, "loc",10);
