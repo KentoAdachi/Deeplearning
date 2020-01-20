@@ -108,7 +108,7 @@ public class DistributionEvaluatorScene4 {
 				input[x][y] = 1;
 			}
 		}
-		float[][] filter = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+		float[][] filter = { { 1, 1, 1 }, { 1, 1, 1 }, { 1, 1, 1 } };
 		//		double res_p = evaluator.evaluateTranslatedDataAmount();
 
 		float[][] result_aggr = aggregation_evaluator.forward(input);
