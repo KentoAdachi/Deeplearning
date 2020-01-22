@@ -36,6 +36,7 @@ public class DistributionEvaluatorScene4 {
 				System.out.println(hardware);
 			}
 
+
 			for (int num_nodes = from; num_nodes <= to; num_nodes += step) {
 //												scene(num_nodes, nodes, "loc",100);
 				//				scene(num_nodes, nodes, "rnd", 100);
@@ -121,33 +122,33 @@ public class DistributionEvaluatorScene4 {
 		System.out.println("filepath : " + output.getPath());
 		FileWriter fw = new FileWriter(output, true);
 
-//		fw.write("割り当て方法 : ," + alloc_type + ",計算ノードの数 :," + nodes_calc.size() + ",ノード間距離 :," + node_interval + "\n");
-//		for (int x = 0; x < input.length; x++) {
-//			for (int y = 0; y < input.length; y++) {
-//				System.out.printf("%5.0f,", result_aggr[x][y]);
-//				fw.write(result_aggr[x][y] + ",");
-//			}
-//			System.out.println();
-//			fw.write("\n");
-//		}
-//		fw.write("割り当て方法 : ," + alloc_type + ",計算ノードの数 :," + nodes_calc.size() + ",ノード間距離 :," + node_interval + "\n");
-//		for (int x = 0; x < input.length; x++) {
-//			for (int y = 0; y < input.length; y++) {
-//				System.out.printf("%5.0f,", result_conv_1[x][y]);
-//				fw.write(result_conv_1[x][y] + ",");
-//			}
-//			System.out.println();
-//			fw.write("\n");
-//		}
-//		fw.write("割り当て方法 : ," + alloc_type + ",計算ノードの数 :," + nodes_calc.size() + ",ノード間距離 :," + node_interval + "\n");
-//		for (int x = 0; x < input.length; x++) {
-//			for (int y = 0; y < input.length; y++) {
-//				System.out.printf("%5.0f,", result_conv_2[x][y]);
-//				fw.write(result_conv_2[x][y] + ",");
-//			}
-//			System.out.println();
-//			fw.write("\n");
-//		}
+		fw.write("割り当て方法 : ," + alloc_type + ",計算ノードの数 :," + nodes_calc.size() + ",ノード間距離 :," + node_interval + "\n");
+		for (int x = 0; x < input.length; x++) {
+			for (int y = 0; y < input.length; y++) {
+				System.out.printf("%5.0f,", result_aggr[x][y]);
+				fw.write(result_aggr[x][y] + ",");
+			}
+			System.out.println();
+			fw.write("\n");
+		}
+		fw.write("割り当て方法 : ," + alloc_type + ",計算ノードの数 :," + nodes_calc.size() + ",ノード間距離 :," + node_interval + "\n");
+		for (int x = 0; x < input.length; x++) {
+			for (int y = 0; y < input.length; y++) {
+				System.out.printf("%5.0f,", result_conv_1[x][y]);
+				fw.write(result_conv_1[x][y] + ",");
+			}
+			System.out.println();
+			fw.write("\n");
+		}
+		fw.write("割り当て方法 : ," + alloc_type + ",計算ノードの数 :," + nodes_calc.size() + ",ノード間距離 :," + node_interval + "\n");
+		for (int x = 0; x < input.length; x++) {
+			for (int y = 0; y < input.length; y++) {
+				System.out.printf("%5.0f,", result_conv_2[x][y]);
+				fw.write(result_conv_2[x][y] + ",");
+			}
+			System.out.println();
+			fw.write("\n");
+		}
 		fw.write("割り当て方法 : ," + alloc_type + ",計算ノードの数 :," + nodes_calc.size() + ",ノード間距離 :," + node_interval + "\n");
 		for (int x = 0; x < input.length; x++) {
 			for (int y = 0; y < input.length; y++) {

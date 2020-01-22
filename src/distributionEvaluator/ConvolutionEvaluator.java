@@ -15,6 +15,19 @@ public class ConvolutionEvaluator extends DistributionEvaluator implements IEval
 	public float evaluateTranslatedDataAmount() {
 		return this.evaluateTranslatedDataAmount_B();
 	}
+	
+	/*
+	 * 線形補間の手順
+	 * func hokan (float[][],AllocationMap) -> float[][] 
+	 * 
+	 * allocation_mapの値に基づいてinputを分割する．
+	 * 
+	 * すべての欠損値を選択する
+	 * 
+	 * 欠損値の周囲のinputを選択する
+	 *
+	 * 
+	 * */
 
 	//纏めてデータを交換する場合のシミュレーション
 	public float[][] forward_B(float[][] input, float[][] filter) throws Exception {

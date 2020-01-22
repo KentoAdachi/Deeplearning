@@ -115,7 +115,6 @@ public class PoolingEvaluator extends DistributionEvaluator implements IEvaluato
 		}
 	}
 
-	//現状畳み込みからコピーしただけ
 	public float evaluateTranslatedDataAmount_B() {
 		float ret = 0;
 		for (int num_node = 0; num_node < nodes_.size(); num_node++) {
@@ -208,6 +207,21 @@ public class PoolingEvaluator extends DistributionEvaluator implements IEvaluato
 	}
 
 	//畳み込み処理の評価
+
+	/*
+	 * フィルタの適応する区画から最大値を求める
+	 * フィルタが複数領域にまたがる場合は，中心のユニットを持っているノードを受信側，それ以外を送信側とする．
+	 * 送信側は，受信者を確認し，持っているデータのうち最大のデータを送信する．（失敗する場合は０を送信する．）
+	 * 受信側は，必要なデータが発生した場合，その送信者を確認し，データが送られてくるのを待つ
+	 * 必要なデータがそろうと，比較を行う．
+	 * データがそろわない場合は，持っているデータで比較を行う．
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 * */
 	@Deprecated
 	public float[][] forward(float[][] input, float[][] filter) throws Exception {
 		float[][] ret = new float[input.length][input.length];
